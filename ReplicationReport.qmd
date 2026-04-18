@@ -1,0 +1,122 @@
+---
+title: "Replication of Study X by Sample & Sample (20xx, Psychological Science)"
+author: "Replication Author[s] (contact information)"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+format:
+  html:
+    toc: true
+    toc_depth: 3
+---
+
+
+## Introduction
+
+Wolff et al. (2009) proposes the initiator hypothesis that states in languages with morphological case (e.g., Korean, Turkish), the external argument of a clause [i.e., the subject] must be able to self energize. This restriction results in the following contrast:
+The husband surprised the wife. (Highly acceptable in English/Mandarin).
+The ring surprised the wife. (Highly acceptable in English/Chinese, but significantly less natural for Korean speakers).                   (Wolff et al., 2009) 
+Kim & Marsden (2026) further extends this hypothesis to psych-verbs and shows that the difference persists between the case marking (Korean) and non-case marking languages (English and Mandarin). The Initiator Hypothesis predicts Turkish speakers to align with Korean speakers since they are both case marking languages. 
+
+This study aims to test the initiator hypothesis with Turkish speakers. Since there is no study that confirms this relative contrast replicates in a case marking language other than Korean, I will employ the Turkish translations of the material in Wolff et. al. to show that the Initiator hypothesis is relevant to Turkish, and compare the data to the Korean and English speakers in Wolff et al. (2009). Lastly, the experimental design will follow  Kim & Marsden (2026) who aimed to replicate Wolff et al. (2009) with psych verbs. 
+
+References:
+Kim, J., & Marsden, H. (2026). Cross-linguistic constraints on subjecthood in causative psych verbs: An experimental investigation of Korean, Mandarin Chinese and English. Glossa Psycholinguistics, 5(1).
+
+Wolff, P., Jeon, G. H., & Li, Y. (2009). Causers in English, Korean, and Chinese and the individuation of events. Language and Cognition, 1(2), 167-196.
+
+
+## Methods
+
+### Power Analysis
+
+Wolff et al. (2009) and Kim & Marsden (2026) does not include a formal, detailed power analysis to justify their sample sizes. However Wolff et al. (2009) has 18 speakers for each language (i.e., English, Mandarin, and Korean) while Kim & Marsden (2026) employs 44 Korean speakers.
+
+A priori power analysis yields the following numbers:
+
+% 80: N = 66
+% 90: N = 84
+%95 N = 102
+
+Since both studies report significant differences between Korean speakers and English speakers, I assume 44 participants must yield significant results.
+
+### Planned Sample
+
+Considering the previous studies and the power analysis I plan a sample size of 44 to 105 native Turkish speakers. The participants will be preselected based on whether they are native speakers and if they use Turkish in their daily lives, to eliminate any attrition and intervention bias.
+
+### Materials
+
+This study employs the stimuli developed for Experiment 1 by Wolff et al. (2009). The sentences in Wolff et al. (2009) will be translated into Turkish.  Wolff et al. (2009) has 30 sentences with inanimate external arguments. Half of these sentences have external arguments that are mostly able to generate their own energy, as shown in (1).
+
+The air conditioner cooled the room. (Wolff et al., 2009)
+
+The external arguments of the other half have external arguments that are unable to generate their own energy, (2).
+
+The knife cut the bread. (Wolff et al., 2009)
+
+Kim & Marsden (2026) has 32 target sentences with 16 animate and 16 inanimate external arguments. This study also has 24 filler items. 
+
+Since I replicate the design in Kim & Marsden (2026), with the materials in Wolff et al. (2009), I will have the direct translations of the 30 sentences in Wolff et al. (2009), along with 22 filler items from Kim & Marsden (2026). There will be 52 sentences in total.
+
+
+### Procedure	
+
+Can quote directly from original article - just put the text in quotations and note that this was followed precisely.  Or, quote directly and just point out exceptions to what was described in the original article.
+
+### Analysis Plan
+
+Can also quote directly, though it is less often spelled out effectively for an analysis strategy section.  The key is to report an analysis strategy that is as close to the original - data cleaning rules, data exclusion rules, covariates, etc. - as possible.  
+
+**Clarify key analysis of interest here**  You can also pre-specify additional analyses you plan to do.
+
+### Differences from Original Study
+
+Explicitly describe known differences in sample, setting, procedure, and analysis plan from original study.  The goal, of course, is to minimize those differences, but differences will inevitably occur.  Also, note whether such differences are anticipated to make a difference based on claims in the original article or subsequent published research on the conditions for obtaining the effect.
+
+### Methods Addendum (Post Data Collection)
+
+You can comment this section out prior to final report with data collection.
+
+#### Actual Sample
+  Sample size, demographics, data exclusions based on rules spelled out in analysis plan
+
+#### Differences from pre-data collection methods plan
+  Any differences from what was described as the original plan, or “none”.
+
+
+## Results
+
+
+### Data preparation
+
+Data preparation following the analysis plan.
+	
+```{r include=F}
+### Data Preparation
+
+#### Load Relevant Libraries and Functions
+
+#### Import data
+
+#### Data exclusion / filtering
+
+#### Prepare data for analysis - create columns etc.
+```
+
+### Confirmatory analysis
+
+The analyses as specified in the analysis plan.  
+
+*Side-by-side graph with original graph is ideal here*
+
+### Exploratory analyses
+
+Any follow-up analyses desired (not required).  
+
+## Discussion
+
+### Summary of Replication Attempt
+
+Open the discussion section with a paragraph summarizing the primary result from the confirmatory analysis and the assessment of whether it replicated, partially replicated, or failed to replicate the original result.  
+
+### Commentary
+
+Add open-ended commentary (if any) reflecting (a) insights from follow-up exploratory analysis, (b) assessment of the meaning of the replication (or not) - e.g., for a failure to replicate, are the differences between original and present study ones that definitely, plausibly, or are unlikely to have been moderators of the result, and (c) discussion of any objections or challenges raised by the current and original authors about the replication attempt.  None of these need to be long.
