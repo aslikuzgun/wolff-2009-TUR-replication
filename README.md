@@ -2,6 +2,9 @@
 # Project Description
 This study replicates Wolff et al. (2009) with Turkish data, using the experimental design of Kim & Marsden (2026).
 
+Here is a link to the prototype experiment:
+https://aslikuzgun.github.io/wolff-2009-TUR-replication/Experiment.html
+
 OSF project page: https://osf.io/cm3b9/overview
 
 ## References
