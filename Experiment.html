@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Acceptability Judgment Task</title>
+  <link rel="stylesheet" href="https://unpkg.com/jspsych@7.3.4/css/jspsych.css" />
+  <script src="https://unpkg.com/jspsych@7.3.4"></script>
+  <script src="https://unpkg.com/@jspsych/plugin-html-button-response@1.2.0"></script>
+  <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@1.1.3"></script>
+  <script src="https://unpkg.com/@jspsych-contrib/plugin-pipe"></script>
+  <style>
+    body {
+      background: linear-gradient(180deg, #f7f4ee 0%, #ffffff 100%);
+      color: #1f2937;
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .jspsych-content {
+      max-width: 900px;
+      line-height: 1.65;
+    }
+
+    .panel {
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      border-radius: 20px;
+      box-shadow: 0 16px 40px rgba(31, 41, 55, 0.08);
+      padding: 2rem 2.25rem;
+      text-align: left;
+    }
+
+    h1, h2 {
+      margin-top: 0;
+      font-family: "Trebuchet MS", Arial, sans-serif;
+      letter-spacing: 0.02em;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.25rem;
+    }
+
+    h2 {
+      font-size: 1.45rem;
+      margin-bottom: 1rem;
+    }
+
+    .lede {
+      font-size: 1.08rem;
+      margin-bottom: 1.25rem;
+      color: #374151;
+    }
+
+    .sentence-box {
+      font-size: 1.55rem;
+      line-height: 1.7;
+      margin: 1.5rem 0 1.75rem;
+      padding: 1.5rem 1.25rem;
+      border-radius: 16px;
+      background: #faf7f0;
+      border: 1px solid rgba(31, 41, 55, 0.08);
+    }
+
+    .scale-note {
+      font-size: 1rem;
+      color: #6b7280;
+      margin-bottom: 0.6rem;
+    }
+
+    .jspsych-btn {
+      min-width: 4.5rem;
+      margin: 0.3rem;
+      font-size: 1rem;
+      border-radius: 999px;
+      padding: 0.65rem 1rem;
+      border: 1px solid #b9b2a6;
+      background: #fff;
+      color: #111827;
+      cursor: pointer;
+    }
+
+    .jspsych-btn:hover {
+      border-color: #6b7280;
+      background: #f9fafb;
+    }
+
+    .intro-list {
+      text-align: left;
+      margin: 1rem 0 0;
+      padding-left: 1.3rem;
+    }
+
+    .intro-list li {
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body></body>
+<script>
+  const jsPsych = initJsPsych({
+    show_progress_bar: true,
+    on_finish: function () {
+      // Data are saved to DataPipe before the final thank-you screen.
+    }
+  });
+
+  const subject_id = jsPsych.randomization.randomID(10);
+  const filename = `${subject_id}.csv`;
+  const DATAPIPE_EXPERIMENT_ID = "MmjD9uQZYa6C";
+
+  jsPsych.data.addProperties({
+    participant_id: subject_id,
+    experiment_id: DATAPIPE_EXPERIMENT_ID
+  });
+
+  function shuffle(array) {
+    const result = [...array];
+    for (let index = result.length - 1; index > 0; index -= 1) {
+      const randomIndex = Math.floor(Math.random() * (index + 1));
+      [result[index], result[randomIndex]] = [result[randomIndex], result[index]];
+    }
+    return result;
+  }
+
+  function normalizeSentence(text) {
+    return String(text || "")
+      .replace(/\s+([.,!?;:])/g, "$1")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function buildRatingTrial(item) {
+    return {
+      type: jsPsychHtmlButtonResponse,
+      stimulus: `
+        <div class="panel">
+          <div class="sentence-box">${normalizeSentence(item.sentence)}</div>
+          <div class="scale-note">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      `,
+      choices: ["1", "2", "3", "4", "5"],
+      button_html: '<button class="jspsych-btn">%choice%</button>',
+      prompt: `
+        <div class="scale-note">
+          1 = çok garip &nbsp;&nbsp;&nbsp; 5 = tamamen doğal
+        </div>
+      `,
+      data: {
+        task: "acceptability_rating",
+        item_id: item.id,
+        condition: item.condition || "filler",
+        item_type: item.item_type || "filler",
+        sentence: normalizeSentence(item.sentence)
+      },
+      on_finish: function (data) {
+        data.rating = Number(data.response) + 1;
+      }
+    };
+  }
+
+  const introPage = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: `
+      <div class="panel">
+        <h1>Hoşgeldiniz!</h1>
+        <p class="lede">Bu çalışmada Türkçe cümlelerin kulağa doğal gelip gelmediğine karar vermeniz istenecek.</p>
+        <p class="lede">Bu çalışmada doğru veya yanlış bir cevap yok, karar verirken kendi içgüdülerinize göre davranmalısınız.</p>
+        <p class="lede">Lütfen cümleleri gördüğünüzde çok fazla düşünmeden ve dürüstçe karar veriniz.</p>
+        <p class="lede">Katılımınız için teşekkür ederim.</p>
+
+        </div>
+    `,
+    choices: ["Devam"]
+  };
+
+  const instructionsPage = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: `
+      <div class="panel">
+        <h2>Yönerge</h2>
+        <ul class="intro-list">
+          <li>Cümleleri ardışık olarak birer kez göreceksiniz.</li>
+          <li>Değerlendirmenizi belirtmek için 1’den 5’e kadar sıralanmış butonları kullanınız.</li>
+          <li>1 puan, cümleyi çok tuhaf bulduğunuz ve sizin bu cümleyi günlük hayatınızda kullanmayacağınız anlamına gelmektedir.</li>
+          <li>5 puan cümlede hiçbir sorun yok anlamına gelmektedir.</li>
+          <li>Derecelendirmeyi cümlenin rahatsız edicilik seviyesine göre belirleyiniz.</li>
+          <li>Lütfen içgüdünüze güvenin!</li>
+        </ul>
+      </div>
+    `,
+    choices: ["Başlat"]
+  };
+
+  // There will be 30 critical items here.
+  
+  const criticalItems = [
+    { id: 1, condition: "self_energizing", item_type: "critical", sentence: "Klima odayı soğuttu." },
+    { id: 2, condition: "non_self_energizing", item_type: "critical", sentence: "Bıçak ekmeği kesti." },
+  ];
+
+  // There will be 22 filler items here.
+  
+  const fillerItems = [
+    // Example:
+    // { id: 31, item_type: "filler", sentence: "..." },
+  ];
+
+  if (criticalItems.length !== 30 || fillerItems.length !== 22) {
+    console.warn(
+      `Expected 30 critical items and 22 fillers, but found ${criticalItems.length} critical and ${fillerItems.length} fillers.`
+    );
+  }
+
+  const allTrials = shuffle([
+    ...criticalItems,
+    ...fillerItems
+  ]).map(buildRatingTrial);
+
+  const saveData = {
+    type: jsPsychPipe,
+    action: "save",
+    experiment_id: DATAPIPE_EXPERIMENT_ID,
+    filename: filename,
+    data_string: () => jsPsych.data.get().csv()
+  };
+
+  const endPage = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: `
+      <div class="panel">
+        <h2>Teşekkürler!</h2>
+        <p class="lede">Cevaplarınız kaydedilmiştir.</p>
+        <p class="lede">Deneyi tamamlamış bulunuyorsunuz.</p>
+      </div>
+    `,
+    choices: ["Bitir"]
+  };
+
+  const timeline = [
+    introPage,
+    instructionsPage,
+    ...allTrials,
+    saveData,
+    endPage
+  ];
+
+  jsPsych.run(timeline);
+</script>
+</html>
