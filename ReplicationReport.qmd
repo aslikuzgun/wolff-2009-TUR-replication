@@ -8,7 +8,6 @@ format:
     toc_depth: 3
 ---
 
-
 ## Introduction
 
 Wolff et al. (2009) proposes the initiator hypothesis that states in languages with morphological case (e.g., Korean, Turkish), the external argument of a clause [i.e., the subject] must be able to self energize. This restriction results in the following contrast:
@@ -28,19 +27,22 @@ Wolff, P., Jeon, G. H., & Li, Y. (2009). Causers in English, Korean, and Chinese
 
 ### Power Analysis
 
-Wolff et al. (2009) and Kim & Marsden (2026) does not include a formal, detailed power analysis to justify their sample sizes. However Wolff et al. (2009) has 18 speakers for each language (i.e., English, Mandarin, and Korean) while Kim & Marsden (2026) employs 44 Korean speakers.
+### The statistical models used in the original studies.
 
-A priori power analysis yields the following numbers:
+Wolff et al. uses F-tests for the main effects of language and energy generation of the subjects.
+Kim & Marsden (2026) use Regression coefficients in their report for main effects of subjecthood.
 
-% 80: N = 66
-% 90: N = 84
-%95 N = 102
+A power analysis for the Wolff et al. study yields an f2 = 1.185, which requires 12 participants for 80% power. 
+I think this is because Wolff et al. is a multilingual study and having 18 participants per language is a small sample size that might have cause an increase in the f values.
 
-Since both studies report significant differences between Korean speakers and English speakers, I assume 44 participants must yield significant results.
+
+A power analysis for Kim & Marsden (2026) has an f2 of 0.41 and this yields 22 participants for 80% power.
+
 
 ### Planned Sample
+Wolff et al. (2009) has 18 speakers for each language (i.e., English, Mandarin, and Korean) while Kim & Marsden (2026) employs 44 Korean speakers.
 
-Considering the previous studies and the power analysis I plan a sample size of 44 to 105 native Turkish speakers. The participants will be preselected based on whether they are native speakers and if they use Turkish in their daily lives, to eliminate any attrition and intervention bias.
+Considering the previous studies and the power analysis I plan a sample size of 60 native Turkish speakers. The participants will be preselected based on whether they are native speakers and if they use Turkish in their daily lives, to eliminate any attrition and intervention bias.
 
 ### Materials
 
@@ -56,18 +58,24 @@ Kim & Marsden (2026) has 32 target sentences with 16 animate and 16 inanimate ex
 
 Since I replicate the design in Kim & Marsden (2026), with the materials in Wolff et al. (2009), I will have the direct translations of the 30 sentences in Wolff et al. (2009), along with 22 filler items from Kim & Marsden (2026). There will be 52 sentences in total.
 
-
 ### Procedure	
 
-Can quote directly from original article - just put the text in quotations and note that this was followed precisely.  Or, quote directly and just point out exceptions to what was described in the original article.
+In this experiment, participants are shown sentences one by one on Prolific. They rate the naturalness of sentences on a 5-point scale (0 to 4), where 4 means "completely natural" and 0 means "completely unnatural." Participants will be explicitly told to base their judgments on their linguistic intuition. The entire process should take 10–15 minutes.
 
 ### Analysis Plan
 
-Can also quote directly, though it is less often spelled out effectively for an analysis strategy section.  The key is to report an analysis strategy that is as close to the original - data cleaning rules, data exclusion rules, covariates, etc. - as possible.  
+Following Kim and Marsden (2006), I will implement the model using Cumulative Link Mixed Models (CLMMs) in R. The primary fixed effect will be Condition (self-energizing vs. non-self-energizing subjects). I will use Estimated Marginal Means (EMMs) to conduct pairwise comparisons between the two conditions. I will attempt to fit the maximal model, however, if it fails to converge (as in Kim and Marsden 2006), I will simplify the model by including random slopes for items only. I will use sum-coding to assess how much each condition deviates from the average rating.
 
-**Clarify key analysis of interest here**  You can also pre-specify additional analyses you plan to do.
+### Data cleaning
+
+Participant data will be screened based on responses to grammatical and ungrammatical fillers. Participants will be excluded if they fail to show a clear differentiation between these categories. In addition, any participant with incomplete data or suspicious response patterns (e.g., selecting the same rating for every item) will be removed from the analysis.
 
 ### Differences from Original Study
+
+Unlike Kim and Marsden, this study focuses on a single language (Turkish), therefore, there won’t be a group condition.
+After analyzing the Turkish data, I will compare the results to the Wolff et al. study.
+This will have to include some changes because Wolff et al. used a 0–100 scale and F-tests, unlike the design I am following.  Therefore, the comparison with their study will be conceptual and focus on whether Turkish speakers show a significantly larger drop in acceptability for non-initiating subjects than English or Chinese speakers, aligning with Korean speakers.
+
 
 Explicitly describe known differences in sample, setting, procedure, and analysis plan from original study.  The goal, of course, is to minimize those differences, but differences will inevitably occur.  Also, note whether such differences are anticipated to make a difference based on claims in the original article or subsequent published research on the conditions for obtaining the effect.
 
