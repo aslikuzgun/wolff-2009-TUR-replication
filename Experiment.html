@@ -194,23 +194,63 @@
 
   // There will be 30 critical items here.
   
-  const criticalItems = [
-    { id: 1, condition: "self_energizing", item_type: "critical", sentence: "Klima odayı soğuttu." },
-    { id: 2, condition: "non_self_energizing", item_type: "critical", sentence: "Bıçak ekmeği kesti." },
+   const criticalItems = [
+     { id: 1, condition: "high_energy", item_type: "critical", sentence: "Klima odayı soğuttu." },
+    { id: 2, condition: "high_energy", item_type: "critical", sentence: "Çalar saat çocukları uyandırdı." },
+    { id: 3, condition: "high_energy", item_type: "critical", sentence: "Isıtıcı kahveyi ısıttı." },
+    { id: 4, condition: "high_energy", item_type: "critical", sentence: "Mum odayı aydınlattı." },
+    { id: 5, condition: "high_energy", item_type: "critical", sentence: "Bulaşık makinesi bulaşıkları çalkaladı." },
+    { id: 6, condition: "high_energy", item_type: "critical", sentence: "Elektrikli su ısıtıcısı suyu kaynattı." },
+    { id: 7, condition: "high_energy", item_type: "critical", sentence: "Gözlük camı kelimeleri büyüttü." },
+    { id: 8, condition: "high_energy", item_type: "critical", sentence: "Yıldırım bekçiyi öldürdü." },
+    { id: 9, condition: "high_energy", item_type: "critical", sentence: "Mikrodalga çorbayı ısıttı." },
+    { id: 10, condition: "high_energy", item_type: "critical", sentence: "Buzdolabı birayı soğuttu." },
+    { id: 11, condition: "high_energy", item_type: "critical", sentence: "Soba kabini ısıttı." },
+    { id: 12, condition: "high_energy", item_type: "critical", sentence: "Ocak eti pişirdi." },
+    { id: 13, condition: "high_energy", item_type: "critical", sentence: "Güneş kıyafetleri kuruttu." },
+    { id: 14, condition: "high_energy", item_type: "critical", sentence: "Ekmek kızartma makinesi ekmeği kızarttı." },
+    { id: 15, condition: "high_energy", item_type: "critical", sentence: "Rüzgar kapıyı açtı." },
+    { id: 16, condition: "low_energy", item_type: "critical", sentence: "Çatal erişteyi ezdi." },
+    { id: 17, condition: "low_energy", item_type: "critical", sentence: "Tirbuşon şişeyi açtı." },
+    { id: 18, condition: "low_energy", item_type: "critical", sentence: "Silgi lekeyi sildi." },
+    { id: 19, condition: "low_energy", item_type: "critical", sentence: "Çekiç vazoyu kırdı." },
+    { id: 20, condition: "low_energy", item_type: "critical", sentence: "Askı gömleği düşürdü." },
+    { id: 21, condition: "low_energy", item_type: "critical", sentence: "Topuklu ayakkabı zemini çizdi." },
+    { id: 22, condition: "low_energy", item_type: "critical", sentence: "Ceket çocuğu ısıttı." },
+    { id: 23, condition: "low_energy", item_type: "critical", sentence: "Çaydanlık çayı demledi." },
+    { id: 24, condition: "low_energy", item_type: "critical", sentence: "Anahtar kapıyı kilitledi." },
+    { id: 25, condition: "low_energy", item_type: "critical", sentence: "Bıçak ekmeği kesti." },
+    { id: 26, condition: "low_energy", item_type: "critical", sentence: "Kalem notu yazdı." },
+    { id: 27, condition: "low_energy", item_type: "critical", sentence: "Makas kağıdı kesti." },
+    { id: 28, condition: "low_energy", item_type: "critical", sentence: "Kaşık dondurmayı taşıdı." },
+    { id: 29, condition: "low_energy", item_type: "critical", sentence: "Taş pencereyi kırdı." },
+    { id: 30, condition: "low_energy", item_type: "critical", sentence: "Diş fırçası dişleri temizledi." }
   ];
 
-  // There will be 22 filler items here.
-  
+  // There will be 20 filler items here.
+
   const fillerItems = [
-    // Example:
-    // { id: 31, item_type: "filler", sentence: "..." },
+    { id: 31, condition: "semantic_violation", item_type: "filler", sentence: "Öğrenciler sessizliği ısıttı." },
+    { id: 32, condition: "semantic_violation", item_type: "filler", sentence: "Dünkü sert güneş şarkıyı eritti." },
+    { id: 33, condition: "semantic_violation", item_type: "filler", sentence: "Ayakkabı düşünceyi çatlattı." },
+    { id: 34, condition: "semantic_violation", item_type: "filler", sentence: "Klima tahtayı dondurdu." },
+    { id: 35, condition: "semantic_violation", item_type: "filler", sentence: "Su gömleği kuruttu." },
+    { id: 36, condition: "semantic_violation", item_type: "filler", sentence: "Renkler buzu soğuttu." },
+    { id: 37, condition: "case_marking_error", item_type: "filler", sentence: "Aylin okula çok sevdi." },
+    { id: 38, condition: "case_marking_error", item_type: "filler", sentence: "Aylin her gün otobüsü bindi." },
+    { id: 39, condition: "case_marking_error", item_type: "filler", sentence: "Çocuklar karanlığı çok korktu." },
+    { id: 40, condition: "case_marking_error", item_type: "filler", sentence: "Bebek annesine özledi." },
+    { id: 41, condition: "case_marking_error", item_type: "filler", sentence: "Aylin arkadaşını saldırdı." },
+    { id: 42, condition: "tense_mismatch", item_type: "filler", sentence: "Annem bana yemeği dün yaptıracak." },
+    { id: 43, condition: "tense_mismatch", item_type: "filler", sentence: "Okul geçtiğimiz yıl 22 mezun verecek." },
+    { id: 44, condition: "tense_mismatch", item_type: "filler", sentence: "Otobüs biraz önce kalkacak." },
+    { id: 45, condition: "tense_mismatch", item_type: "filler", sentence: "Aşçı yemeği dün pişirecek." },
+    { id: 46, condition: "tense_mismatch", item_type: "filler", sentence: "Yarın Nilüfer bu parçayı söyledi." },
+    { id: 47, condition: "grammatical", item_type: "filler", sentence: "Aylin camı çatlattı." },
+    { id: 48, condition: "grammatical", item_type: "filler", sentence: "Klima duvara takılacak." },
+    { id: 49, condition: "grammatical", item_type: "filler", sentence: "İnsanlar yüksek sesten rahatsız oldu." },
+    { id: 50, condition: "grammatical", item_type: "filler", sentence: "Deniz dalgalanmaya başladı." }
   ];
-
-  if (criticalItems.length !== 30 || fillerItems.length !== 22) {
-    console.warn(
-      `Expected 30 critical items and 22 fillers, but found ${criticalItems.length} critical and ${fillerItems.length} fillers.`
-    );
-  }
 
   const allTrials = shuffle([
     ...criticalItems,
