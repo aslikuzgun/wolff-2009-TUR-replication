@@ -68,7 +68,16 @@
       margin-bottom: 0.6rem;
     }
 
+    .jspsych-button-response {
+      pointer-events: none;
+    }
+
+    .jspsych-html-button-response-button {
+      pointer-events: none;
+    }
+
     .jspsych-btn {
+      pointer-events: auto;
       min-width: 4.5rem;
       margin: 0.3rem;
       font-size: 1rem;
@@ -77,15 +86,32 @@
       border: 1px solid #b9b2a6;
       background: #fff;
       color: #111827;
-      cursor: pointer;
+      cursor: grab !important;
     }
 
     .jspsych-btn:hover {
       border-color: #6b7280;
       background: #f9fafb;
+      cursor: grab !important;
     }
 
-    .intro-list {
+    button {
+      pointer-events: auto;
+      cursor: grab !important;
+    }
+
+    button:hover {
+      cursor: grab !important;
+    }
+
+    .jspsych-button-response button {
+      pointer-events: auto;
+      cursor: grab !important;
+    }
+
+    .jspsych-button-response button:hover {
+      cursor: grab !important;
+    }
       text-align: left;
       margin: 1rem 0 0;
       padding-left: 1.3rem;
@@ -139,11 +165,11 @@
           <div class="scale-note">Bu cümle size doğal geliyor mu?</div>
         </div>
       `,
-      choices: ["1", "2", "3", "4", "5"],
+      choices: ["0", "1", "2", "3", "4"],
       button_html: '<button class="jspsych-btn">%choice%</button>',
       prompt: `
         <div class="scale-note">
-          1 = çok garip &nbsp;&nbsp;&nbsp; 5 = tamamen doğal
+          0 = çok garip &nbsp;&nbsp;&nbsp; 4 = tamamen doğal
         </div>
       `,
       data: {
@@ -154,7 +180,7 @@
         sentence: normalizeSentence(item.sentence)
       },
       on_finish: function (data) {
-        data.rating = Number(data.response) + 1;
+        data.rating = Number(data.response);
       }
     };
   }
@@ -164,10 +190,11 @@
     stimulus: `
       <div class="panel">
         <h1>Hoşgeldiniz!</h1>
-        <p class="lede">Bu çalışmada Türkçe cümlelerin kulağa doğal gelip gelmediğine karar vermeniz istenecek.</p>
-        <p class="lede">Bu çalışmada doğru veya yanlış bir cevap yok, karar verirken kendi içgüdülerinize göre davranmalısınız.</p>
+        <p class="lede">Ortalama 5-6 dakika süren bu çalışmada Türkçe cümlelerin kulağa doğal gelip gelmediğine karar vermeniz istenecek.</p>
+        <p class="lede">Bu çalışmada doğru veya yanlış bir cevap bulunmuyor, karar verirken kendi içgüdülerinize göre davranmalısınız.</p>
         <p class="lede">Lütfen cümleleri gördüğünüzde çok fazla düşünmeden ve dürüstçe karar veriniz.</p>
-        <p class="lede">Katılımınız için teşekkür ederim.</p>
+        <p class="lede">Devam butonuna basarak anadilinizin Türkçe olduğunu ve 18 yaşından büyük olduğunuzu onaylamış olacaksınız.</p>
+        <p class="lede">Katılımınız için teşekkür ederim!</p>
 
         </div>
     `,
@@ -181,15 +208,24 @@
         <h2>Yönerge</h2>
         <ul class="intro-list">
           <li>Cümleleri ardışık olarak birer kez göreceksiniz.</li>
-          <li>Değerlendirmenizi belirtmek için 1’den 5’e kadar sıralanmış butonları kullanınız.</li>
-          <li>1 puan, cümleyi çok tuhaf bulduğunuz ve sizin bu cümleyi günlük hayatınızda kullanmayacağınız anlamına gelmektedir.</li>
-          <li>5 puan cümlede hiçbir sorun yok anlamına gelmektedir.</li>
+          <li>Değerlendirmenizi belirtmek için 0'dan 4'e kadar sıralanmış butonları kullanınız.</li>
+          <li>0 puan, cümleyi çok tuhaf bulduğunuz ve sizin bu cümleyi günlük hayatınızda kullanmayacağınız anlamına gelmektedir.</li>
+          <li>4 puan cümlede hiçbir sorun yok anlamına gelmektedir.</li>
           <li>Derecelendirmeyi cümlenin rahatsız edicilik seviyesine göre belirleyiniz.</li>
           <li>Lütfen içgüdünüze güvenin!</li>
         </ul>
       </div>
     `,
-    choices: ["Başlat"]
+    choices: ["Geri dön", "Başlat"]
+  };
+
+  const introAndInstructions = {
+    timeline: [introPage, instructionsPage],
+    loop_function: function (data) {
+      const responses = data.values();
+      const lastResponse = responses[responses.length - 1]?.response;
+      return lastResponse === 0;
+    }
   };
 
   // There will be 30 critical items here.
@@ -278,8 +314,7 @@
   };
 
   const timeline = [
-    introPage,
-    instructionsPage,
+    introAndInstructions,
     ...allTrials,
     saveData,
     endPage
