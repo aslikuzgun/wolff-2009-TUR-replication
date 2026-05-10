@@ -216,16 +216,11 @@
         </ul>
       </div>
     `,
-    choices: ["Geri dön", "Başlat"]
+    choices: ["Başlat"]
   };
 
   const introAndInstructions = {
-    timeline: [introPage, instructionsPage],
-    loop_function: function (data) {
-      const responses = data.values();
-      const lastResponse = responses[responses.length - 1]?.response;
-      return lastResponse === 0;
-    }
+    timeline: [introPage, instructionsPage]
   };
 
   // There will be 30 critical items here.
@@ -293,12 +288,51 @@
     ...fillerItems
   ]).map(buildRatingTrial);
 
-  const saveData = {
+  // Check if DataPipe plugin is available
+  console.log("🔍 jsPsychPipe available?", typeof jsPsychPipe !== 'undefined');
+  console.log("📋 Subject ID:", subject_id);
+  
+  const save_data = {
     type: jsPsychPipe,
     action: "save",
-    experiment_id: DATAPIPE_EXPERIMENT_ID,
+    experiment_id: "MmjD9uQZYa6C",
     filename: filename,
-    data_string: () => jsPsych.data.get().csv()
+    data_string: () => {
+      const csv = jsPsych.data.get().csv();
+      console.log("💾 Attempting to save CSV, length:", csv.length);
+      return csv;
+    },
+    on_finish: function(data) {
+      console.log("✅ Save trial finished. Response:", data);
+      const allData = jsPsych.data.get();
+      const ratingCount = allData.filter({task: 'acceptability_rating'}).count();
+      console.log(`📊 Total ratings in database: ${ratingCount}`);
+      if (data.success === false) {
+        console.error("❌ DataPipe save failed!");
+        // Try to save locally as backup
+        const csv = jsPsych.data.get().csv();
+        localStorage.setItem(`backup_${subject_id}`, csv);
+        console.log("💾 Data backed up to localStorage:", subject_id);
+      }
+    }
+  };
+
+  // Add a safety check before the end page
+  const dataVerification = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: `
+      <div class="panel">
+        <p class="lede" id="save-status">Veriler işleniyor ve kaydediliyor...</p>
+      </div>
+    `,
+    choices: [],
+    trial_duration: 2000,
+    on_load: function() {
+      const totalTrials = jsPsych.data.get().filter({task: 'acceptability_rating'}).count();
+      const statusEl = document.getElementById('save-status');
+      statusEl.innerHTML = `<strong>${totalTrials} deneme kaydedildi.</strong><br/>Sunucuya kaydediliyor...`;
+      console.log(`Total trials completed: ${totalTrials} / 50`);
+    }
   };
 
   const endPage = {
@@ -316,9 +350,20 @@
   const timeline = [
     introAndInstructions,
     ...allTrials,
-    saveData,
+    dataVerification,
+    save_data,
     endPage
   ];
+
+  // Warn users not to close before data saves
+  window.addEventListener('beforeunload', function(e) {
+    const dataCount = jsPsych.data.get().count();
+    if (dataCount > 0 && dataCount < 50) {
+      e.preventDefault();
+      e.returnValue = 'Deney henüz bitmemiş! Lütfen deneyden çıkmayın.';
+      return 'Deney henüz bitmemiş! Lütfen deneyden çıkmayın.';
+    }
+  });
 
   jsPsych.run(timeline);
 </script>
