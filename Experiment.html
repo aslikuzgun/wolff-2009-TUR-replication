@@ -297,6 +297,8 @@
     action: "save",
     experiment_id: "MmjD9uQZYa6C",
     filename: filename,
+    wait_message: "<p>Veriler kaydediliyor. Lütfen bu sayfayı kapatmayın.</p>",
+    compression: false,
     data_string: () => {
       const csv = jsPsych.data.get().csv();
       console.log("💾 Attempting to save CSV, length:", csv.length);
