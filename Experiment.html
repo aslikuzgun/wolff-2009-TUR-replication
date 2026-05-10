@@ -8,7 +8,7 @@
   <script src="https://unpkg.com/jspsych@7.3.4"></script>
   <script src="https://unpkg.com/@jspsych/plugin-html-button-response@1.2.0"></script>
   <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@1.1.3"></script>
-  <script src="https://unpkg.com/@jspsych-contrib/plugin-pipe"></script>
+  <script src="https://unpkg.com/@jspsych-contrib/plugin-pipe@0.4"></script>
   <style>
     body {
       background: linear-gradient(180deg, #f7f4ee 0%, #ffffff 100%);
@@ -192,7 +192,7 @@
         <h1>Hoşgeldiniz!</h1>
         <p class="lede">Ortalama 5-6 dakika süren bu çalışmada Türkçe cümlelerin kulağa doğal gelip gelmediğine karar vermeniz istenecek.</p>
         <p class="lede">Bu çalışmada doğru veya yanlış bir cevap bulunmuyor, karar verirken kendi içgüdülerinize göre davranmalısınız.</p>
-        <p class="lede">Lütfen cümleleri gördüğünüzde çok fazla düşünmeden ve dürüstçe karar veriniz.</p>
+        <p class="lede">Lütfen cümleleri gördüğünüzde dürüstçe ve dikkatlice karar veriniz.</p>
         <p class="lede">Devam butonuna basarak anadilinizin Türkçe olduğunu ve 18 yaşından büyük olduğunuzu onaylamış olacaksınız.</p>
         <p class="lede">Katılımınız için teşekkür ederim!</p>
 
@@ -216,16 +216,11 @@
         </ul>
       </div>
     `,
-    choices: ["Geri dön", "Başlat"]
+    choices: ["Başlat"]
   };
 
   const introAndInstructions = {
-    timeline: [introPage, instructionsPage],
-    loop_function: function (data) {
-      const responses = data.values();
-      const lastResponse = responses[responses.length - 1]?.response;
-      return lastResponse === 0;
-    }
+    timeline: [introPage, instructionsPage]
   };
 
   // There will be 30 critical items here.
@@ -293,12 +288,53 @@
     ...fillerItems
   ]).map(buildRatingTrial);
 
-  const saveData = {
+  // Check if DataPipe plugin is available
+  console.log("🔍 jsPsychPipe available?", typeof jsPsychPipe !== 'undefined');
+  console.log("📋 Subject ID:", subject_id);
+  
+  const save_data = {
     type: jsPsychPipe,
     action: "save",
-    experiment_id: DATAPIPE_EXPERIMENT_ID,
+    experiment_id: "MmjD9uQZYa6C",
     filename: filename,
-    data_string: () => jsPsych.data.get().csv()
+    wait_message: "<p>Veriler kaydediliyor. Lütfen bu sayfayı kapatmayın.</p>",
+    compression: false,
+    data_string: () => {
+      const csv = jsPsych.data.get().csv();
+      console.log("💾 Attempting to save CSV, length:", csv.length);
+      return csv;
+    },
+    on_finish: function(data) {
+      console.log("✅ Save trial finished. Response:", data);
+      const allData = jsPsych.data.get();
+      const ratingCount = allData.filter({task: 'acceptability_rating'}).count();
+      console.log(`📊 Total ratings in database: ${ratingCount}`);
+      if (data.success === false) {
+        console.error("❌ DataPipe save failed!");
+        // Try to save locally as backup
+        const csv = jsPsych.data.get().csv();
+        localStorage.setItem(`backup_${subject_id}`, csv);
+        console.log("💾 Data backed up to localStorage:", subject_id);
+      }
+    }
+  };
+
+  // Add a safety check before the end page
+  const dataVerification = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: `
+      <div class="panel">
+        <p class="lede" id="save-status">Veriler işleniyor ve kaydediliyor...</p>
+      </div>
+    `,
+    choices: [],
+    trial_duration: 2000,
+    on_load: function() {
+      const totalTrials = jsPsych.data.get().filter({task: 'acceptability_rating'}).count();
+      const statusEl = document.getElementById('save-status');
+      statusEl.innerHTML = `<strong>${totalTrials} deneme kaydedildi.</strong><br/>Sunucuya kaydediliyor...`;
+      console.log(`Total trials completed: ${totalTrials} / 50`);
+    }
   };
 
   const endPage = {
@@ -306,8 +342,6 @@
     stimulus: `
       <div class="panel">
         <h2>Teşekkürler!</h2>
-        <p class="lede">Cevaplarınız kaydedilmiştir.</p>
-        <p class="lede">Deneyi tamamlamış bulunuyorsunuz.</p>
       </div>
     `,
     choices: ["Bitir"]
@@ -316,9 +350,20 @@
   const timeline = [
     introAndInstructions,
     ...allTrials,
-    saveData,
+    dataVerification,
+    save_data,
     endPage
   ];
+
+  // Warn users not to close before data saves
+  window.addEventListener('beforeunload', function(e) {
+    const dataCount = jsPsych.data.get().count();
+    if (dataCount > 0 && dataCount < 50) {
+      e.preventDefault();
+      e.returnValue = 'Deney henüz bitmemiş! Lütfen deneyden çıkmayın.';
+      return 'Deney henüz bitmemiş! Lütfen deneyden çıkmayın.';
+    }
+  });
 
   jsPsych.run(timeline);
 </script>

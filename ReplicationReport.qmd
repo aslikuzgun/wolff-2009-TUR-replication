@@ -1,9 +1,9 @@
 ---
-title: "Replication of Study X by Sample & Sample (20xx, Psychological Science)"
-author: "Replication Author[s] (contact information)"
+title: "Replication of Study Wolff et al. (2009) and Kim & Marsden (2026) on the Initiator Hypothesis in Turkish"
+author: "Aslı Kuzgun"
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 format:
-  html:
+  html: 
     toc: true
     toc_depth: 3
 ---
@@ -56,7 +56,7 @@ The knife cut the bread. (Wolff et al., 2009)
 
 Kim & Marsden (2026) has 32 target sentences with 16 animate and 16 inanimate external arguments. This study also has 24 filler items. 
 
-Since I replicate the design in Kim & Marsden (2026), with the materials in Wolff et al. (2009), I will have the direct translations of the 30 sentences in Wolff et al. (2009), along with 22 filler items from Kim & Marsden (2026). There will be 52 sentences in total.
+Since I replicate the design in Kim & Marsden (2026), with the materials in Wolff et al. (2009), I will have the direct translations of the 30 sentences in Wolff et al. (2009), along with 20 filler items with different acceptability conditions. There will be 50 sentences in total. The fillers will serve as attention checkers. 
 
 ### Procedure	
 
@@ -93,20 +93,134 @@ You can comment this section out prior to final report with data collection.
 ## Results
 
 
-### Data preparation
+### Data # R
+# libraries
+library(tidyverse)
+library(readxl)
+library(ordinal)
+library(emmeans)
+library(osfr)
+library(ggdist)
+library(ggplot2)
 
-Data preparation following the analysis plan.
-	
-```{r include=F}
-### Data Preparation
+# Fetch files from OSF
 
-#### Load Relevant Libraries and Functions
+```{r}
+# Point R to the component ID where your data files are
+data_node <- osf_retrieve_node("f8trv")
 
-#### Import data
+# List the files in OSF
+all_files <- osf_ls_files(data_node)
 
-#### Data exclusion / filtering
+# Create the OSF directory
+dir.create("osf_data", showWarnings = FALSE)
+
+# Download files
+osf_download(all_files, path = "osf_data", conflicts = "overwrite")
+
+# Read OSF files 
+fpaths <- list.files("osf_data", pattern = "\\.csv$", full.names = TRUE, recursive = TRUE)
+
+data_list <- purrr::map(set_names(fpaths, basename(fpaths)), ~readr::read_csv(.x, show_col_types = FALSE))
+
+# Check the results
+names(data_list)
+```
 
 #### Prepare data for analysis - create columns etc.
+
+```{r}
+
+all_data <- data_list %>%
+  purrr::map(~ mutate(.x, across(any_of(c("rt", "response", "rating")), as.character))) %>%
+  bind_rows(.id = "filename") %>%
+  mutate(
+    rt = as.numeric(rt),
+    response = as.numeric(response),
+    rating = as.numeric(rating)
+  )
+
+experiment_only <- all_data %>% 
+  filter(!is.na(task))
+
+# See the amount of critical items and fillers
+table(experiment_only$item_type)
+
+# Show the combined clean data
+glimpse(experiment_only)
+```
+#### Data exclusion / filtering
+```{r}
+# Filter to keep only the participants who used the 0-4 scale (I changed the scale after the Pilot A)
+modeling_data <- experiment_only %>%
+  filter(item_type == "critical") %>%
+  # Exclude the pilot participant with the old scale
+  filter(participant_id != "byt4qop83n") %>%
+  # Also exclude those who didn't finish 
+  group_by(participant_id) %>%
+  filter(n() > 10) %>% 
+  ungroup() %>%
+  mutate(
+    rating = factor(rating, levels = c("0", "1", "2", "3", "4"), ordered = TRUE),
+    condition = as.factor(condition)
+  )
+
+# Ensure `rating` is an ordered factor with string levels (in case it was numeric),
+# and use sum-coding for `condition` as planned in the analysis notes.
+modeling_data <- modeling_data %>%
+  mutate(rating = factor(as.character(rating), levels = c("0", "1", "2", "3", "4"), ordered = TRUE),
+         condition = factor(as.character(condition)))
+
+# Apply sum contrasts for condition (useful for interpretation / emmeans)
+contrasts(modeling_data$condition) <- contr.sum(length(levels(modeling_data$condition)))
+
+# Run the final model
+model <- clmm(rating ~ condition + (1|participant_id) + (1|item_id), 
+              data = modeling_data)
+
+# Show results
+summary(model)
+```
+# Plotting object
+library(ggdist)
+library(ggplot2)
+
+```{r}
+### Data visualization
+library(ggdist)
+library(ggplot2)
+
+# Create plotting dataset and a numeric rating column for visualization
+plot_data <- modeling_data %>%
+  select(participant_id, item_id, condition, rating) %>%
+  mutate(rating_num = as.integer(as.character(rating)))
+
+ggplot(plot_data, aes(x = condition, y = rating_num, fill = condition)) +
+  # Dots
+  stat_dots(
+    side = "left", 
+    justification = 1.1, 
+    binwidth = 0.15,
+    dotsize = 1.5,
+    alpha = 0.7
+  ) +
+  # bars
+  stat_pointinterval(
+    point_interval = mean_qi, 
+    .width = c(.66, .95),
+    position = position_nudge(x = 0.1)
+  ) +
+  scale_y_continuous(breaks = 0:4, limits = c(-0.5, 4.5)) +
+  scale_fill_manual(values = c("#56B4E9", "#E69F00")) +
+  theme_minimal(base_size = 14) +
+  labs(
+    title = "Acceptability Ratings of Self-Energizing vs. Non-Self-Energizing Subjects",
+    # Eğer metni grafiğin ALTINDA istiyorsanız 'caption' kullanın:
+    caption = "Dots represent the distribution; bars show mean interval",
+    x = "Condition",
+    y = "Rating (0-4)"
+  ) +
+  guides(fill = "none")
 ```
 
 ### Confirmatory analysis
