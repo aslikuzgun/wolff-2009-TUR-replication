@@ -165,13 +165,12 @@ modeling_data <- experiment_only %>%
     condition = as.factor(condition)
   )
 
-# Ensure `rating` is an ordered factor with string levels (in case it was numeric),
-# and use sum-coding for `condition` as planned in the analysis notes.
+# Ensure rating is an ordered factor and condition is treated as categorical
 modeling_data <- modeling_data %>%
   mutate(rating = factor(as.character(rating), levels = c("0", "1", "2", "3", "4"), ordered = TRUE),
          condition = factor(as.character(condition)))
 
-# Apply sum contrasts for condition (useful for interpretation / emmeans)
+# Apply sum contrasts for condition
 contrasts(modeling_data$condition) <- contr.sum(length(levels(modeling_data$condition)))
 
 # Run the final model
@@ -215,7 +214,6 @@ ggplot(plot_data, aes(x = condition, y = rating_num, fill = condition)) +
   theme_minimal(base_size = 14) +
   labs(
     title = "Acceptability Ratings of Self-Energizing vs. Non-Self-Energizing Subjects",
-    # Eğer metni grafiğin ALTINDA istiyorsanız 'caption' kullanın:
     caption = "Dots represent the distribution; bars show mean interval",
     x = "Condition",
     y = "Rating (0-4)"
@@ -227,7 +225,6 @@ ggplot(plot_data, aes(x = condition, y = rating_num, fill = condition)) +
 
 The analyses as specified in the analysis plan.  
 
-*Side-by-side graph with original graph is ideal here*
 
 ### Exploratory analyses
 
