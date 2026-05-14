@@ -339,15 +339,38 @@
     }
   };
 
-  const endPage = {
+  // Get Prolific completion URL from query parameters
+  const urlParams = new URLSearchParams(window.location.search);
+  const completionUrl = urlParams.get('PROLIFIC_PID') ? urlParams.get('COMPLETION_URL') : null;
+  const prolificPID = urlParams.get('PROLIFIC_PID');
+
+  const completionPage = {
     type: jsPsychHtmlButtonResponse,
-    stimulus: `
-      <div class="panel">
-        <h2>Teşekkürler!</h2>
-        <p class="lede">Cevaplarınız kaydediliyor, lütfen pencereyi kapatmayınız.</p>
-      </div>
-    `,
-    choices: ["Bitir"]
+    stimulus: () => {
+      let html = `
+        <div class="panel">
+          <h2>Teşekkürler!</h2>
+          <p class="lede">Cevaplarınız kaydedilmiştir, lütfen tamamlama kodunuzu kaydediniz.</p>
+          <div style="background: #f0f0f0; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+            <p style="font-size: 0.95rem; margin-bottom: 0.5rem; color: #6b7280;">Tamamlama Kodu:</p>
+            <p style="font-family: monospace; font-size: 1.3rem; font-weight: bold; letter-spacing: 0.1em; word-break: break-all;">${prolificPID || subject_id}</p>
+          </div>
+          <p class="lede" style="font-size: 0.9rem; color: #6b7280;">Bu kodu Prolific tarafından sağlanan forma yapıştırınız.</p>
+      `;
+      
+      if (completionUrl) {
+        html += `<p class="lede" style="font-size: 0.9rem; color: #6b7280;">Ya da aşağıdaki bağlantıya tıklayınız:</p>`;
+      }
+      
+      html += `</div>`;
+      return html;
+    },
+    choices: completionUrl ? ["Tamamla"] : ["Bitir"],
+    on_finish: function() {
+      if (completionUrl) {
+        window.location.href = completionUrl;
+      }
+    }
   };
 
   const timeline = [
@@ -355,7 +378,7 @@
     ...allTrials,
     dataVerification,
     save_data,
-    endPage
+    completionPage
   ];
 
   // Warn users not to close before data saves
