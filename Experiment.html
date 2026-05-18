@@ -339,10 +339,11 @@
     }
   };
 
-  // Get Prolific completion URL from query parameters, falling back to the provided redirect URL.
+  // Use the fixed Prolific completion URL for this study.
   const urlParams = new URLSearchParams(window.location.search);
   const prolificPID = urlParams.get('PROLIFIC_PID');
-  const completionUrl = urlParams.get('COMPLETION_URL') || 'https://app.prolific.com/submissions/complete?cc=C1OGWJ1K';
+  const completionUrl = 'https://app.prolific.com/submissions/complete?cc=C1OGWJ1K';
+  const completionCode = 'C1OGWJ1K';
 
   const completionPage = {
     type: jsPsychHtmlButtonResponse,
@@ -353,7 +354,7 @@
           <p class="lede">Cevaplarınız kaydedilmiştir, lütfen tamamlama kodunuzu kaydediniz.</p>
           <div style="background: #f0f0f0; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
             <p style="font-size: 0.95rem; margin-bottom: 0.5rem; color: #6b7280;">Tamamlama Kodu:</p>
-            <p style="font-family: monospace; font-size: 1.3rem; font-weight: bold; letter-spacing: 0.1em; word-break: break-all;">${prolificPID || subject_id}</p>
+            <p style="font-family: monospace; font-size: 1.3rem; font-weight: bold; letter-spacing: 0.1em; word-break: break-all;">${completionCode}</p>
           </div>
           <p class="lede" style="font-size: 0.9rem; color: #6b7280;">Bu kodu Prolific tarafından sağlanan forma yapıştırınız.</p>
       `;
