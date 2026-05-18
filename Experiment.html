@@ -136,10 +136,20 @@
   const subject_id = jsPsych.randomization.randomID(10);
   const filename = `${subject_id}.csv`;
   const DATAPIPE_EXPERIMENT_ID = "MmjD9uQZYa6C";
+  const OSF_PROJECT_ID = "cm3b9";
+  
+  // Capture Prolific IDs from URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const prolificPID = urlParams.get('PROLIFIC_PID');
+  const studyID = urlParams.get('STUDY_ID');
+  const sessionID = urlParams.get('SESSION_ID');
 
   jsPsych.data.addProperties({
     participant_id: subject_id,
-    experiment_id: DATAPIPE_EXPERIMENT_ID
+    experiment_id: DATAPIPE_EXPERIMENT_ID,
+    prolific_pid: prolificPID,
+    prolific_study_id: studyID,
+    prolific_session_id: sessionID
   });
 
   function shuffle(array) {
@@ -311,12 +321,29 @@
       const allData = jsPsych.data.get();
       const ratingCount = allData.filter({task: 'acceptability_rating'}).count();
       console.log(`📊 Total ratings in database: ${ratingCount}`);
+      
       if (data.success === false) {
-        console.error("❌ DataPipe save failed!");
+        console.error("❌ DataPipe save failed!", data);
+        console.error("Error details:", {
+          success: data.success,
+          message: data.message,
+          error: data.error
+        });
+        
         // Try to save locally as backup
         const csv = jsPsych.data.get().csv();
         localStorage.setItem(`backup_${subject_id}`, csv);
         console.log("💾 Data backed up to localStorage:", subject_id);
+        
+        // Log environment info for debugging
+        console.warn("⚠️ Environment info:", {
+          userAgent: navigator.userAgent,
+          isSecureContext: window.isSecureContext,
+          protocol: window.location.protocol,
+          hostname: window.location.hostname
+        });
+      } else {
+        console.log("✅ Data successfully saved to OSF via DataPipe");
       }
     }
   };
@@ -340,8 +367,6 @@
   };
 
   // Use the fixed Prolific completion URL for this study.
-  const urlParams = new URLSearchParams(window.location.search);
-  const prolificPID = urlParams.get('PROLIFIC_PID');
   const completionUrl = 'https://app.prolific.com/submissions/complete?cc=C1OGWJ1K';
   const completionCode = 'C1OGWJ1K';
 
