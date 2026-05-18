@@ -369,6 +369,13 @@
       return html;
     },
     choices: completionUrl ? ["Tamamla"] : ["Bitir"],
+    on_load: function() {
+      if (completionUrl) {
+        setTimeout(function() {
+          window.location.replace(completionUrl);
+        }, 500);
+      }
+    },
     on_finish: function() {
       if (completionUrl) {
         window.location.href = completionUrl;
