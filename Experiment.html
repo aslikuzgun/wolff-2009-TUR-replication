@@ -339,10 +339,10 @@
     }
   };
 
-  // Get Prolific completion URL from query parameters
+  // Get Prolific completion URL from query parameters, falling back to the provided redirect URL.
   const urlParams = new URLSearchParams(window.location.search);
-  const completionUrl = urlParams.get('PROLIFIC_PID') ? urlParams.get('COMPLETION_URL') : null;
   const prolificPID = urlParams.get('PROLIFIC_PID');
+  const completionUrl = urlParams.get('COMPLETION_URL') || 'https://app.prolific.com/submissions/complete?cc=C1OGWJ1K';
 
   const completionPage = {
     type: jsPsychHtmlButtonResponse,
@@ -362,7 +362,9 @@
         html += `<p class="lede" style="font-size: 0.9rem; color: #6b7280;">Ya da aşağıdaki bağlantıya tıklayınız:</p>`;
       }
       
-      html += `</div>`;
+      html += `
+        </div>
+      `;
       return html;
     },
     choices: completionUrl ? ["Tamamla"] : ["Bitir"],
