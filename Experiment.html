@@ -138,18 +138,9 @@
   const DATAPIPE_EXPERIMENT_ID = "MmjD9uQZYa6C";
   const OSF_PROJECT_ID = "cm3b9";
   
-  // Capture Prolific IDs from URL
-  const urlParams = new URLSearchParams(window.location.search);
-  const prolificPID = urlParams.get('PROLIFIC_PID');
-  const studyID = urlParams.get('STUDY_ID');
-  const sessionID = urlParams.get('SESSION_ID');
-
   jsPsych.data.addProperties({
     participant_id: subject_id,
-    experiment_id: DATAPIPE_EXPERIMENT_ID,
-    prolific_pid: prolificPID,
-    prolific_study_id: studyID,
-    prolific_session_id: sessionID
+    experiment_id: DATAPIPE_EXPERIMENT_ID
   });
 
   function shuffle(array) {
@@ -330,11 +321,6 @@
           error: data.error
         });
         
-        // Try to save locally as backup
-        const csv = jsPsych.data.get().csv();
-        localStorage.setItem(`backup_${subject_id}`, csv);
-        console.log("💾 Data backed up to localStorage:", subject_id);
-        
         // Log environment info for debugging
         console.warn("⚠️ Environment info:", {
           userAgent: navigator.userAgent,
@@ -366,46 +352,16 @@
     }
   };
 
-  // Use the fixed Prolific completion URL for this study.
-  const completionUrl = 'https://app.prolific.com/submissions/complete?cc=C1OGWJ1K';
-  const completionCode = 'C1OGWJ1K';
-
+  // Simple thank-you completion page (no Prolific redirect/code)
   const completionPage = {
     type: jsPsychHtmlButtonResponse,
-    stimulus: () => {
-      let html = `
-        <div class="panel">
-          <h2>Teşekkürler!</h2>
-          <p class="lede">Cevaplarınız kaydedilmiştir, lütfen tamamlama kodunuzu kaydediniz.</p>
-          <div style="background: #f0f0f0; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
-            <p style="font-size: 0.95rem; margin-bottom: 0.5rem; color: #6b7280;">Tamamlama Kodu:</p>
-            <p style="font-family: monospace; font-size: 1.3rem; font-weight: bold; letter-spacing: 0.1em; word-break: break-all;">${completionCode}</p>
-          </div>
-          <p class="lede" style="font-size: 0.9rem; color: #6b7280;">Bu kodu Prolific tarafından sağlanan forma yapıştırınız.</p>
-      `;
-      
-      if (completionUrl) {
-        html += `<p class="lede" style="font-size: 0.9rem; color: #6b7280;">Ya da aşağıdaki bağlantıya tıklayınız:</p>`;
-      }
-      
-      html += `
-        </div>
-      `;
-      return html;
-    },
-    choices: completionUrl ? ["Tamamla"] : ["Bitir"],
-    on_load: function() {
-      if (completionUrl) {
-        setTimeout(function() {
-          window.location.replace(completionUrl);
-        }, 500);
-      }
-    },
-    on_finish: function() {
-      if (completionUrl) {
-        window.location.href = completionUrl;
-      }
-    }
+    stimulus: `
+      <div class="panel">
+        <h2>Teşekkürler!</h2>
+        <p class="lede">Cevaplarınız kaydedilmiştir. Katılımınız için teşekkür ederiz.</p>
+      </div>
+    `,
+    choices: ["Bitir"]
   };
 
   const timeline = [
