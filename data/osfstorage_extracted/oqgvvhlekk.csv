@@ -1,0 +1,36 @@
+"rt","stimulus","response","trial_type","trial_index","time_elapsed","internal_node_id","participant_id","experiment_id","task","item_id","condition","item_type","sentence","rating"
+"5572","
+      <div class=""panel"">
+        <h1>Hoşgeldiniz!</h1>
+        <p class=""lede"">Bu çalışmada Türkçe cümlelerin kulağa doğal gelip gelmediğine karar vermeniz istenecek.</p>
+        <p class=""lede"">Bu çalışmada doğru veya yanlış bir cevap yok, karar verirken kendi içgüdülerinize göre davranmalısınız.</p>
+        <p class=""lede"">Lütfen cümleleri gördüğünüzde çok fazla düşünmeden ve dürüstçe karar veriniz.</p>
+        <p class=""lede"">Katılımınız için teşekkür ederim.</p>
+
+        </div>
+    ","0","html-button-response","0","5579","0.0-0.0","oqgvvhlekk","MmjD9uQZYa6C","","","","","",""
+"781","
+      <div class=""panel"">
+        <h2>Yönerge</h2>
+        <ul class=""intro-list"">
+          <li>Cümleleri ardışık olarak birer kez göreceksiniz.</li>
+          <li>Değerlendirmenizi belirtmek için 1’den 5’e kadar sıralanmış butonları kullanınız.</li>
+          <li>1 puan, cümleyi çok tuhaf bulduğunuz ve sizin bu cümleyi günlük hayatınızda kullanmayacağınız anlamına gelmektedir.</li>
+          <li>5 puan cümlede hiçbir sorun yok anlamına gelmektedir.</li>
+          <li>Derecelendirmeyi cümlenin rahatsız edicilik seviyesine göre belirleyiniz.</li>
+          <li>Lütfen içgüdünüze güvenin!</li>
+        </ul>
+      </div>
+    ","0","html-button-response","1","6362","0.0-1.0","oqgvvhlekk","MmjD9uQZYa6C","","","","","",""
+"1015","
+        <div class=""panel"">
+          <div class=""sentence-box"">Bıçak ekmeği kesti.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","2","html-button-response","2","7378","0.0-2.0","oqgvvhlekk","MmjD9uQZYa6C","acceptability_rating","2","non_self_energizing","critical","Bıçak ekmeği kesti.","3"
+"628","
+        <div class=""panel"">
+          <div class=""sentence-box"">Klima odayı soğuttu.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","2","html-button-response","3","8007","0.0-3.0","oqgvvhlekk","MmjD9uQZYa6C","acceptability_rating","1","self_energizing","critical","Klima odayı soğuttu.","3"

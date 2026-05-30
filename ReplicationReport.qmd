@@ -225,6 +225,16 @@ ggplot(plot_data, aes(x = condition, y = rating_num, fill = condition)) +
 
 The analyses as specified in the analysis plan.  
 
+### Descriptive statistics (computed)
+
+The combined dataset (`wolff_TUR_data`) was summarized for numeric variables; the full table is in `results/statistics.csv` and a preview is shown below.
+
+```{r}
+stats <- read.csv("results/statistics.csv", stringsAsFactors = FALSE)
+if (nrow(stats) > 0) knitr::kable(stats)
+else cat("No numeric summary available. (Check results/statistics.csv)")
+```
+
 
 ### Exploratory analyses
 

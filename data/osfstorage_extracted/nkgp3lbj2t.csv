@@ -1,0 +1,330 @@
+"rt","stimulus","response","trial_type","trial_index","time_elapsed","internal_node_id","participant_id","experiment_id","task","item_id","condition","item_type","sentence","rating"
+"16677","
+      <div class=""panel"">
+        <h1>Hoşgeldiniz!</h1>
+        <p class=""lede"">Ortalama 5-6 dakika süren bu çalışmada Türkçe cümlelerin kulağa doğal gelip gelmediğine karar vermeniz istenecek.</p>
+        <p class=""lede"">Bu çalışmada doğru veya yanlış bir cevap bulunmuyor, karar verirken kendi içgüdülerinize göre davranmalısınız.</p>
+        <p class=""lede"">Lütfen cümleleri gördüğünüzde dürüstçe ve dikkatlice karar veriniz.</p>
+        <p class=""lede"">Devam butonuna basarak anadilinizin Türkçe olduğunu ve 18 yaşından büyük olduğunuzu onaylamış olacaksınız.</p>
+        <p class=""lede"">Katılımınız için teşekkür ederim!</p>
+
+        </div>
+    ","0","html-button-response","0","16695","0.0-0.0-0.0","nkgp3lbj2t","MmjD9uQZYa6C","","","","","",""
+"6168","
+      <div class=""panel"">
+        <h2>Yönerge</h2>
+        <ul class=""intro-list"">
+          <li>Cümleleri ardışık olarak birer kez göreceksiniz.</li>
+          <li>Değerlendirmenizi belirtmek için 0'dan 4'e kadar sıralanmış butonları kullanınız.</li>
+          <li>0 puan, cümleyi çok tuhaf bulduğunuz ve sizin bu cümleyi günlük hayatınızda kullanmayacağınız anlamına gelmektedir.</li>
+          <li>4 puan cümlede hiçbir sorun yok anlamına gelmektedir.</li>
+          <li>Derecelendirmeyi cümlenin rahatsız edicilik seviyesine göre belirleyiniz.</li>
+          <li>Lütfen içgüdünüze güvenin!</li>
+        </ul>
+      </div>
+    ","0","html-button-response","1","22865","0.0-0.0-1.0","nkgp3lbj2t","MmjD9uQZYa6C","","","","","",""
+"12538","
+        <div class=""panel"">
+          <div class=""sentence-box"">Soba kabini ısıttı.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","2","html-button-response","2","35405","0.0-1.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","11","high_energy","critical","Soba kabini ısıttı.","2"
+"15831","
+        <div class=""panel"">
+          <div class=""sentence-box"">Dünkü sert güneş şarkıyı eritti.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","2","html-button-response","3","51237","0.0-2.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","32","semantic_violation","filler","Dünkü sert güneş şarkıyı eritti.","2"
+"11572","
+        <div class=""panel"">
+          <div class=""sentence-box"">Mikrodalga çorbayı ısıttı.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","3","html-button-response","4","62811","0.0-3.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","9","high_energy","critical","Mikrodalga çorbayı ısıttı.","3"
+"3148","
+        <div class=""panel"">
+          <div class=""sentence-box"">Diş fırçası dişleri temizledi.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","4","html-button-response","5","65961","0.0-4.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","30","low_energy","critical","Diş fırçası dişleri temizledi.","4"
+"13817","
+        <div class=""panel"">
+          <div class=""sentence-box"">Aylin okula çok sevdi.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","4","html-button-response","6","79779","0.0-5.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","37","case_marking_error","filler","Aylin okula çok sevdi.","4"
+"4368","
+        <div class=""panel"">
+          <div class=""sentence-box"">Kaşık dondurmayı taşıdı.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","4","html-button-response","7","84149","0.0-6.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","28","low_energy","critical","Kaşık dondurmayı taşıdı.","4"
+"3827","
+        <div class=""panel"">
+          <div class=""sentence-box"">Anahtar kapıyı kilitledi.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","4","html-button-response","8","87977","0.0-7.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","24","low_energy","critical","Anahtar kapıyı kilitledi.","4"
+"8923","
+        <div class=""panel"">
+          <div class=""sentence-box"">Aşçı yemeği dün pişirecek.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","2","html-button-response","9","96901","0.0-8.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","45","tense_mismatch","filler","Aşçı yemeği dün pişirecek.","2"
+"5666","
+        <div class=""panel"">
+          <div class=""sentence-box"">Çekiç vazoyu kırdı.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","4","html-button-response","10","102569","0.0-9.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","19","low_energy","critical","Çekiç vazoyu kırdı.","4"
+"3025","
+        <div class=""panel"">
+          <div class=""sentence-box"">Ceket çocuğu ısıttı.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","4","html-button-response","11","105595","0.0-10.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","22","low_energy","critical","Ceket çocuğu ısıttı.","4"
+"2331","
+        <div class=""panel"">
+          <div class=""sentence-box"">Deniz dalgalanmaya başladı.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","4","html-button-response","12","107927","0.0-11.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","50","grammatical","filler","Deniz dalgalanmaya başladı.","4"
+"10505","
+        <div class=""panel"">
+          <div class=""sentence-box"">Bebek annesine özledi.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","4","html-button-response","13","118433","0.0-12.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","40","case_marking_error","filler","Bebek annesine özledi.","4"
+"3381","
+        <div class=""panel"">
+          <div class=""sentence-box"">Buzdolabı birayı soğuttu.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","4","html-button-response","14","121815","0.0-13.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","10","high_energy","critical","Buzdolabı birayı soğuttu.","4"
+"13557","
+        <div class=""panel"">
+          <div class=""sentence-box"">Su gömleği kuruttu.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","3","html-button-response","15","135373","0.0-14.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","35","semantic_violation","filler","Su gömleği kuruttu.","3"
+"8663","
+        <div class=""panel"">
+          <div class=""sentence-box"">Çalar saat çocukları uyandırdı.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","4","html-button-response","16","144037","0.0-15.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","2","high_energy","critical","Çalar saat çocukları uyandırdı.","4"
+"4071","
+        <div class=""panel"">
+          <div class=""sentence-box"">Bulaşık makinesi bulaşıkları çalkaladı.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","4","html-button-response","17","148109","0.0-16.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","5","high_energy","critical","Bulaşık makinesi bulaşıkları çalkaladı.","4"
+"5289","
+        <div class=""panel"">
+          <div class=""sentence-box"">Kalem notu yazdı.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","3","html-button-response","18","153399","0.0-17.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","26","low_energy","critical","Kalem notu yazdı.","3"
+"4367","
+        <div class=""panel"">
+          <div class=""sentence-box"">Renkler buzu soğuttu.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","2","html-button-response","19","157767","0.0-18.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","36","semantic_violation","filler","Renkler buzu soğuttu.","2"
+"3081","
+        <div class=""panel"">
+          <div class=""sentence-box"">Ekmek kızartma makinesi ekmeği kızarttı.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","4","html-button-response","20","160849","0.0-19.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","14","high_energy","critical","Ekmek kızartma makinesi ekmeği kızarttı.","4"
+"9701","
+        <div class=""panel"">
+          <div class=""sentence-box"">Çocuklar karanlığı çok korktu.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","4","html-button-response","21","170551","0.0-20.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","39","case_marking_error","filler","Çocuklar karanlığı çok korktu.","4"
+"4947","
+        <div class=""panel"">
+          <div class=""sentence-box"">Okul geçtiğimiz yıl 22 mezun verecek.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","1","html-button-response","22","175499","0.0-21.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","43","tense_mismatch","filler","Okul geçtiğimiz yıl 22 mezun verecek.","1"
+"3653","
+        <div class=""panel"">
+          <div class=""sentence-box"">Aylin arkadaşını saldırdı.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","3","html-button-response","23","179153","0.0-22.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","41","case_marking_error","filler","Aylin arkadaşını saldırdı.","3"
+"4051","
+        <div class=""panel"">
+          <div class=""sentence-box"">Klima odayı soğuttu.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","4","html-button-response","24","183205","0.0-23.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","1","high_energy","critical","Klima odayı soğuttu.","4"
+"6965","
+        <div class=""panel"">
+          <div class=""sentence-box"">Gözlük camı kelimeleri büyüttü.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","3","html-button-response","25","190171","0.0-24.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","7","high_energy","critical","Gözlük camı kelimeleri büyüttü.","3"
+"2252","
+        <div class=""panel"">
+          <div class=""sentence-box"">Rüzgar kapıyı açtı.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","4","html-button-response","26","192425","0.0-25.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","15","high_energy","critical","Rüzgar kapıyı açtı.","4"
+"3235","
+        <div class=""panel"">
+          <div class=""sentence-box"">Ayakkabı düşünceyi çatlattı.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","3","html-button-response","27","195661","0.0-26.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","33","semantic_violation","filler","Ayakkabı düşünceyi çatlattı.","3"
+"5125","
+        <div class=""panel"">
+          <div class=""sentence-box"">Öğrenciler sessizliği ısıttı.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","3","html-button-response","28","200787","0.0-27.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","31","semantic_violation","filler","Öğrenciler sessizliği ısıttı.","3"
+"2347","
+        <div class=""panel"">
+          <div class=""sentence-box"">Otobüs biraz önce kalkacak.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","4","html-button-response","29","203135","0.0-28.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","44","tense_mismatch","filler","Otobüs biraz önce kalkacak.","4"
+"4087","
+        <div class=""panel"">
+          <div class=""sentence-box"">Elektrikli su ısıtıcısı suyu kaynattı.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","3","html-button-response","30","207223","0.0-29.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","6","high_energy","critical","Elektrikli su ısıtıcısı suyu kaynattı.","3"
+"2029","
+        <div class=""panel"">
+          <div class=""sentence-box"">Makas kağıdı kesti.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","4","html-button-response","31","209253","0.0-30.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","27","low_energy","critical","Makas kağıdı kesti.","4"
+"4878","
+        <div class=""panel"">
+          <div class=""sentence-box"">İnsanlar yüksek sesten rahatsız oldu.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","4","html-button-response","32","214133","0.0-31.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","49","grammatical","filler","İnsanlar yüksek sesten rahatsız oldu.","4"
+"5537","
+        <div class=""panel"">
+          <div class=""sentence-box"">Ocak eti pişirdi.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","1","html-button-response","33","219671","0.0-32.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","12","high_energy","critical","Ocak eti pişirdi.","1"
+"3035","
+        <div class=""panel"">
+          <div class=""sentence-box"">Aylin camı çatlattı.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","3","html-button-response","34","222707","0.0-33.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","47","grammatical","filler","Aylin camı çatlattı.","3"
+"4173","
+        <div class=""panel"">
+          <div class=""sentence-box"">Askı gömleği düşürdü.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","3","html-button-response","35","226881","0.0-34.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","20","low_energy","critical","Askı gömleği düşürdü.","3"
+"2171","
+        <div class=""panel"">
+          <div class=""sentence-box"">Güneş kıyafetleri kuruttu.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","4","html-button-response","36","229053","0.0-35.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","13","high_energy","critical","Güneş kıyafetleri kuruttu.","4"
+"5889","
+        <div class=""panel"">
+          <div class=""sentence-box"">Yıldırım bekçiyi öldürdü.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","3","html-button-response","37","234943","0.0-36.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","8","high_energy","critical","Yıldırım bekçiyi öldürdü.","3"
+"5540","
+        <div class=""panel"">
+          <div class=""sentence-box"">Yarın Nilüfer bu parçayı söyledi.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","4","html-button-response","38","240485","0.0-37.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","46","tense_mismatch","filler","Yarın Nilüfer bu parçayı söyledi.","4"
+"4706","
+        <div class=""panel"">
+          <div class=""sentence-box"">Topuklu ayakkabı zemini çizdi.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","4","html-button-response","39","245193","0.0-38.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","21","low_energy","critical","Topuklu ayakkabı zemini çizdi.","4"
+"3297","
+        <div class=""panel"">
+          <div class=""sentence-box"">Çatal erişteyi ezdi.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","2","html-button-response","40","248491","0.0-39.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","16","low_energy","critical","Çatal erişteyi ezdi.","2"
+"5759","
+        <div class=""panel"">
+          <div class=""sentence-box"">Bıçak ekmeği kesti.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","3","html-button-response","41","254251","0.0-40.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","25","low_energy","critical","Bıçak ekmeği kesti.","3"
+"2873","
+        <div class=""panel"">
+          <div class=""sentence-box"">Isıtıcı kahveyi ısıttı.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","3","html-button-response","42","257125","0.0-41.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","3","high_energy","critical","Isıtıcı kahveyi ısıttı.","3"
+"3731","
+        <div class=""panel"">
+          <div class=""sentence-box"">Mum odayı aydınlattı.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","4","html-button-response","43","260857","0.0-42.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","4","high_energy","critical","Mum odayı aydınlattı.","4"
+"2603","
+        <div class=""panel"">
+          <div class=""sentence-box"">Aylin her gün otobüsü bindi.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","4","html-button-response","44","263461","0.0-43.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","38","case_marking_error","filler","Aylin her gün otobüsü bindi.","4"
+"8499","
+        <div class=""panel"">
+          <div class=""sentence-box"">Çaydanlık çayı demledi.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","3","html-button-response","45","271961","0.0-44.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","23","low_energy","critical","Çaydanlık çayı demledi.","3"
+"3807","
+        <div class=""panel"">
+          <div class=""sentence-box"">Klima duvara takılacak.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","3","html-button-response","46","275769","0.0-45.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","48","grammatical","filler","Klima duvara takılacak.","3"
+"11025","
+        <div class=""panel"">
+          <div class=""sentence-box"">Annem bana yemeği dün yaptıracak.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","4","html-button-response","47","286795","0.0-46.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","42","tense_mismatch","filler","Annem bana yemeği dün yaptıracak.","4"
+"5381","
+        <div class=""panel"">
+          <div class=""sentence-box"">Tirbuşon şişeyi açtı.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","3","html-button-response","48","292177","0.0-47.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","17","low_energy","critical","Tirbuşon şişeyi açtı.","3"
+"3407","
+        <div class=""panel"">
+          <div class=""sentence-box"">Taş pencereyi kırdı.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","4","html-button-response","49","295585","0.0-48.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","29","low_energy","critical","Taş pencereyi kırdı.","4"
+"2548","
+        <div class=""panel"">
+          <div class=""sentence-box"">Klima tahtayı dondurdu.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","2","html-button-response","50","298135","0.0-49.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","34","semantic_violation","filler","Klima tahtayı dondurdu.","2"
+"2975","
+        <div class=""panel"">
+          <div class=""sentence-box"">Silgi lekeyi sildi.</div>
+          <div class=""scale-note"">Bu cümle size doğal geliyor mu?</div>
+        </div>
+      ","4","html-button-response","51","301111","0.0-50.0","nkgp3lbj2t","MmjD9uQZYa6C","acceptability_rating","18","low_energy","critical","Silgi lekeyi sildi.","4"
+"null","
+      <div class=""panel"">
+        <p class=""lede"" id=""save-status"">Veriler işleniyor ve kaydediliyor...</p>
+      </div>
+    ","null","html-button-response","52","303115","0.0-51.0","nkgp3lbj2t","MmjD9uQZYa6C","","","","","",""
