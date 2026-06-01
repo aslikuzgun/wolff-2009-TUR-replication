@@ -124,7 +124,7 @@ participants_tbl <- experiment_only %>%
   group_by(participant_id) %>%
   summarise(n_responses = n(), n_missing_rt = sum(is.na(rt_num)), .groups = "drop") 
 
-# Store the debugging list silently so you can check it in the console if needed
+# Store the debugging list
 cleaning_audit <- list(
   problematic_values = check, 
   problems_summary = problems_preview, 
@@ -155,13 +155,13 @@ print(table(modeling_input$item_type))
 # Show the structure
 glimpse(modeling_input)
 
-# Run this to see how many critical items each person has
+# How many critical items each person has
 check_counts <- modeling_input %>%
   filter(item_type == "critical") %>%
   group_by(participant_id) %>%
   summarise(n_items = n())
 
-# Look at the distribution
+# This shows the distribution
 hist(check_counts$n_items)
 ```
 #### Data exclusion / filtering
@@ -236,7 +236,7 @@ summary(model)
 library(ggplot2)
 library(ggdist)
 
-# Use the cleaned and filtered data for plotting
+# Filter data for critical items
 plot_data <- modeling_data %>%
   mutate(rating_num = as.integer(as.character(rating)))
 
@@ -249,9 +249,9 @@ ggplot(plot_data, aes(x = condition, y = rating_num, fill = condition)) +
  stat_dots(
     side = "left", 
     justification = 1.1, 
-    binwidth = 0.2,          # Using a concrete number (0.2) instead of NULL
+    binwidth = 0.2,          
     dotsize = 1.5,
-    overflow = "compress",   # Force dots to compress instead of overflowing
+    overflow = "compress",   # prevent dots from going beyond the plot area
     alpha = 0.7
   ) +
   # Bars represent the mean and confidence intervals (summary statistics)
@@ -260,12 +260,12 @@ ggplot(plot_data, aes(x = condition, y = rating_num, fill = condition)) +
     .width = c(.66, .95),
     position = position_nudge(x = 0.1)
   ) +
-    # Add the text labels
+    # Adding the text labels
   geom_text(
     data = means_data,
     aes(x = condition, y = mean_val, label = round(mean_val, 2)),
     vjust = -1,        # Position above the mean point
-    size = 4,          # Font size
+    size = 4,          
     fontface = "plain"
   ) +
   scale_y_continuous(breaks = 0:4, limits = c(-0.5, 4.5)) +
@@ -303,7 +303,7 @@ knitr::kable(em_results, digits = 3, caption = "Estimated Marginal Means by Cond
 
 #### Plot: mean rating by condition
 ```{r}
-# Create a numeric column clearly
+# Create a numeric column 
 rating_values <- as.numeric(as.character(modeling_data$rating))
 modeling_data$rating_num <- rating_values
 
