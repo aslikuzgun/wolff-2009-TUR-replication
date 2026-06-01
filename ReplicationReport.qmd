@@ -60,8 +60,9 @@ Since I replicate the design in Kim & Marsden (2026), with the materials in Wolf
 
 ### Procedure	
 
-In this experiment, participants are shown sentences one by one on Prolific. They rate the naturalness of sentences on a 5-point scale (0 to 4), where 4 means "completely natural" and 0 means "completely unnatural." Participants will be explicitly told to base their judgments on their linguistic intuition. The entire process should take 10–15 minutes.
+In this experiment, participants are shown sentences one by one on Prolific*. They rate the naturalness of sentences on a 5-point scale (0 to 4), where 4 means "completely natural" and 0 means "completely unnatural." Participants will be explicitly told to base their judgments on their linguistic intuition. The entire process should take 10–15 minutes.
 
+* I instead used my socials to recruit participants to ensure native speaker status and demographic representation.
 ### Analysis Plan
 
 Following Kim and Marsden (2006), I will implement the model using Cumulative Link Mixed Models (CLMMs) in R. The primary fixed effect will be Condition (self-energizing vs. non-self-energizing subjects). I will use Estimated Marginal Means (EMMs) to conduct pairwise comparisons between the two conditions. I will attempt to fit the maximal model, however, if it fails to converge (as in Kim and Marsden 2006), I will simplify the model by including random slopes for items only. I will use sum-coding to assess how much each condition deviates from the average rating.
