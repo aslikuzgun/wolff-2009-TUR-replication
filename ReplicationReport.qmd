@@ -84,16 +84,18 @@ Explicitly describe known differences in sample, setting, procedure, and analysi
 You can comment this section out prior to final report with data collection.
 
 #### Actual Sample
-  Sample size, demographics, data exclusions based on rules spelled out in analysis plan
+  A total of116 participants recruited in total. The participants are all native speakers of Turkish and are based in Turkey. The data was collected through the author's socials (either by direct request or through social media). The age group varies between 20-50 years old. The sample is filtered based on the attention checkers and the participants who didn't finish the experiment. Participants who didn't finish the experiment are excluded from the analysis and those who had less than 80% accuracy on the attention checkers are also excluded.
+
+  After the filtering process, I ended up with 101 participants.
+
 
 #### Differences from pre-data collection methods plan
-  Any differences from what was described as the original plan, or “none”.
-
-
+Kim and Marsden did not filter their data based on attention checkers, but I decided to do so to ensure the quality of the data. Also, I had a larger sample size than the original study, which might have increased the power of the study and the chances of finding a significant effect. Compared to the Wolff et al. study, I used a different scale (0-4 instead of 0-100) and a different analysis method (CLMMs instead of F-tests), which might have affected the results. Moreover, my sample size was significantly larger than that of the original study. Lastly, none of the original studies include Turkish speakers, which the current study focuses on, so the comparison with the original studies will be conceptual.
 ## Results
 
 
 ### Data # R
+```{r}
 # libraries
 library(tidyverse)
 library(readxl)
@@ -102,150 +104,339 @@ library(emmeans)
 library(osfr)
 library(ggdist)
 library(ggplot2)
+library(readr)
+library(dplyr)
+library(purrr)
+library(stringr)
+# show dplyr warnings
+dplyr::last_dplyr_warnings()
 
-# Fetch files from OSF
+```
 
 ```{r}
-# Point R to the component ID where your data files are
-data_node <- osf_retrieve_node("f8trv")
 
-# List the files in OSF
-all_files <- osf_ls_files(data_node)
+# final participant counts
+experiment_only <- if ("task" %in% names(df_clean)) df_clean %>% filter(!is.na(task)) else df_clean
 
-# Create the OSF directory
-dir.create("osf_data", showWarnings = FALSE)
+participants_tbl <- experiment_only %>%
+  filter(!is.na(participant_id)) %>%
+  group_by(participant_id) %>%
+  summarise(n_responses = n(), n_missing_rt = sum(is.na(rt_num)), .groups = "drop") 
 
-# Download files
-osf_download(all_files, path = "osf_data", conflicts = "overwrite")
+# Store the debugging list silently so you can check it in the console if needed
+cleaning_audit <- list(
+  problematic_values = check, 
+  problems_summary = problems_preview, 
+  n_missing_after = n_missing_after,
+  counts = participants_tbl
+)
 
-# Read OSF files 
-fpaths <- list.files("osf_data", pattern = "\\.csv$", full.names = TRUE, recursive = TRUE)
-
-data_list <- purrr::map(set_names(fpaths, basename(fpaths)), ~readr::read_csv(.x, show_col_types = FALSE))
-
-# Check the results
-names(data_list)
+# Print a readable output
+cat("Initial data import complete. Total participants recorded:", nrow(participants_tbl), "\n")
 ```
+
 
 #### Prepare data for analysis - create columns etc.
 
 ```{r}
 
-all_data <- data_list %>%
-  purrr::map(~ mutate(.x, across(any_of(c("rt", "response", "rating")), as.character))) %>%
-  bind_rows(.id = "filename") %>%
+
+modeling_input <- experiment_only %>%
   mutate(
     rt = as.numeric(rt),
-    response = as.numeric(response),
     rating = as.numeric(rating)
   )
 
-experiment_only <- all_data %>% 
-  filter(!is.na(task))
+# Verify item types (critical vs fillers)
+cat("Item type distribution:\n")
+print(table(modeling_input$item_type))
 
-# See the amount of critical items and fillers
-table(experiment_only$item_type)
+# Show the structure
+glimpse(modeling_input)
 
-# Show the combined clean data
-glimpse(experiment_only)
+# Run this to see how many critical items each person has
+check_counts <- modeling_input %>%
+  filter(item_type == "critical") %>%
+  group_by(participant_id) %>%
+  summarise(n_items = n())
+
+# Look at the distribution
+hist(check_counts$n_items)
 ```
 #### Data exclusion / filtering
 ```{r}
-# Filter to keep only the participants who used the 0-4 scale (I changed the scale after the Pilot A)
-modeling_data <- experiment_only %>%
-  filter(item_type == "critical") %>%
-  # Exclude the pilot participant with the old scale
+
+# Threshold for attention check accuracy: %80 success on fillers
+ACCURACY_THRESHOLD <- 0.80
+
+modeling_data <- modeling_input %>%
+  # Exclude pilot participants
   filter(participant_id != "byt4qop83n") %>%
-  # Also exclude those who didn't finish 
+  
+  # Passing criteria for all filler types
+  mutate(passed_check = case_when(
+    # Grammatical fillers: Expect high ratings (3 or 4)
+    item_type == "filler" & condition == "grammatical" ~ if_else(rating >= 3, 1, 0),
+  
+    
+    # Violation fillers: Expect low ratings (0, 1, or 2) for all types
+    item_type == "filler" & condition %in% c("semantic_violation", "case_marking_error", "tense_mismatch") ~ if_else(rating <= 2, 1, 0),
+    
+
+    # Exclude critical items from accuracy calculation
+    item_type == "critical" ~ NA_real_,
+    
+    # Default to 0 if none of the above
+    TRUE ~ 0
+  )) %>%
+  
+  # Accuracy and total counts per participant
   group_by(participant_id) %>%
-  filter(n() > 10) %>% 
-  ungroup() %>%
   mutate(
-    rating = factor(rating, levels = c("0", "1", "2", "3", "4"), ordered = TRUE),
-    condition = as.factor(condition)
+    n_critical = sum(item_type == "critical"),
+    n_fillers = sum(!is.na(passed_check)),
+    filler_accuracy = sum(passed_check, na.rm = TRUE) / n_fillers
+  ) %>%
+  
+  # Applying the filters
+  filter(n_critical >= 20 & filler_accuracy >= ACCURACY_THRESHOLD) %>%
+  ungroup() %>%
+  
+  # Format after filtering
+  filter(item_type == "critical") %>%
+  mutate(
+    rating = factor(as.character(rating), levels = c("0", "1", "2", "3", "4"), ordered = TRUE),
+    condition = factor(as.character(condition))
   )
 
-# Ensure rating is an ordered factor and condition is treated as categorical
-modeling_data <- modeling_data %>%
-  mutate(rating = factor(as.character(rating), levels = c("0", "1", "2", "3", "4"), ordered = TRUE),
-         condition = factor(as.character(condition)))
+# Final sample size
+cat("Final sample size after exclusion:", n_distinct(modeling_data$participant_id), "participants.\n")
 
-# Apply sum contrasts for condition
+
+#CLMM (Cumulative Link Mixed Model) following Kim & Marsden (2026)
+# Apply sum contrasts and run model
 contrasts(modeling_data$condition) <- contr.sum(length(levels(modeling_data$condition)))
+model <- clmm(rating ~ condition + (1|participant_id) + (1|item_id), data = modeling_data)
+summary(model)
 
-# Run the final model
-model <- clmm(rating ~ condition + (1|participant_id) + (1|item_id), 
+
+```
+
+### linear model with numeric ratings
+```{r}
+# Convert the ordered factor back to numeric for lmer
+model <- lmer(as.numeric(as.character(rating)) ~ condition + (1 | participant_id) + (1 | item_id), 
               data = modeling_data)
 
-# Show results
 summary(model)
 ```
-# Plotting object
-library(ggdist)
-library(ggplot2)
-
-```{r}
 ### Data visualization
-library(ggdist)
+```{r}
 library(ggplot2)
+library(ggdist)
 
-# Create plotting dataset and a numeric rating column for visualization
+# Use the cleaned and filtered data for plotting
 plot_data <- modeling_data %>%
-  select(participant_id, item_id, condition, rating) %>%
   mutate(rating_num = as.integer(as.character(rating)))
 
+means_data <- plot_data %>%
+  group_by(condition) %>%
+  summarise(mean_val = mean(rating_num, na.rm = TRUE))
+
 ggplot(plot_data, aes(x = condition, y = rating_num, fill = condition)) +
-  # Dots
-  stat_dots(
+  # Dots represent individual data points (distribution)
+ stat_dots(
     side = "left", 
     justification = 1.1, 
-    binwidth = 0.15,
+    binwidth = 0.2,          # Using a concrete number (0.2) instead of NULL
     dotsize = 1.5,
+    overflow = "compress",   # Force dots to compress instead of overflowing
     alpha = 0.7
   ) +
-  # bars
+  # Bars represent the mean and confidence intervals (summary statistics)
   stat_pointinterval(
     point_interval = mean_qi, 
     .width = c(.66, .95),
     position = position_nudge(x = 0.1)
   ) +
+    # Add the text labels
+  geom_text(
+    data = means_data,
+    aes(x = condition, y = mean_val, label = round(mean_val, 2)),
+    vjust = -1,        # Position above the mean point
+    size = 4,          # Font size
+    fontface = "plain"
+  ) +
   scale_y_continuous(breaks = 0:4, limits = c(-0.5, 4.5)) +
   scale_fill_manual(values = c("#56B4E9", "#E69F00")) +
   theme_minimal(base_size = 14) +
   labs(
-    title = "Acceptability Ratings of Self-Energizing vs. Non-Self-Energizing Subjects",
-    caption = "Dots represent the distribution; bars show mean interval",
+    title = "Acceptability Ratings",
+    subtitle = "Distribution and Mean Confidence Intervals",
     x = "Condition",
     y = "Rating (0-4)"
   ) +
   guides(fill = "none")
-```
-
+  ```
 ### Confirmatory analysis
 
 The analyses as specified in the analysis plan.  
 
-### Descriptive statistics (computed)
+```{r}
 
-The combined dataset (`wolff_TUR_data`) was summarized for numeric variables; the full table is in `results/statistics.csv` and a preview is shown below.
+summary(model)
+```
+
+#### Estimated Marginal Means
 
 ```{r}
-stats <- read.csv("results/statistics.csv", stringsAsFactors = FALSE)
-if (nrow(stats) > 0) knitr::kable(stats)
-else cat("No numeric summary available. (Check results/statistics.csv)")
+#### Estimated Marginal Means
+library(emmeans)
+
+# Calculate EMMs from the model 
+em_results <- emmeans(model, ~ condition)
+
+# Print the table
+knitr::kable(em_results, digits = 3, caption = "Estimated Marginal Means by Condition")
+```
+
+#### Plot: mean rating by condition
+```{r}
+# Create a numeric column clearly
+rating_values <- as.numeric(as.character(modeling_data$rating))
+modeling_data$rating_num <- rating_values
+
+# Check for NAs in the new numeric column
+print(paste("Number of NAs in rating_num:", sum(is.na(modeling_data$rating_num))))
+
+# Summarise data for plotting
+summary_table <- modeling_data %>%
+  group_by(condition) %>%
+  summarise(
+    Mean = mean(rating_num, na.rm = TRUE),
+    SD = sd(rating_num, na.rm = TRUE),
+    N = n()
+  )
+
+knitr::kable(summary_table, digits = 2, caption = "Descriptive Statistics by Condition")
 ```
 
 
-### Exploratory analyses
+### Descriptive statistics (computed)
 
-Any follow-up analyses desired (not required).  
+
+### The distribution of Acceptability ratings by condition
+```{r}
+library(ggplot2)
+library(dplyr)
+library(paletteer)
+
+# Filtering for critical items 
+plot_data <- modeling_data %>%
+  filter(condition %in% c("high_energy", "low_energy")) %>%
+  group_by(condition, rating_num) %>%
+  summarise(count = n(), .groups = 'drop') %>%
+  group_by(condition) %>%
+  mutate(percentage = count / sum(count) * 100)
+
+# Colorblind-friendly palette
+my_colors <- paletteer_d("colorblindr::OkabeIto")[1:2]
+
+# Plot the distribution of ratings by condition
+ggplot(plot_data, aes(x = factor(rating_num), y = percentage, fill = condition)) +
+  geom_col(width = 0.7, color = "black") +
+  # Add labels with exact percentages
+  geom_text(aes(label = paste0(round(percentage, 1), "%")), 
+            vjust = -0.5, 
+            size = 3.5) +
+  facet_grid(condition ~ .) + 
+  scale_x_discrete(limits = c("0", "1", "2", "3", "4")) + 
+  scale_y_continuous(expand = expansion(mult = c(0, 0.15))) + 
+  theme_minimal() +
+  labs(
+    title = "Distribution of Acceptability Ratings by Condition",
+    x = "Acceptability Rating (0-4)",
+    y = "Percentage of Responses (%)"
+  ) +
+  scale_fill_manual(values = my_colors) +
+  theme(
+    legend.position = "none",
+    panel.grid.major.x = element_blank(),
+    strip.text = element_text(size = 12, face = "bold")
+  )
+```
+
+#### Binary acceptability percentages by condition
+
+```{r}
+library(dplyr)
+library(knitr)
+
+# Define acceptability based on ratings (only 3 or 4 are acceptable)
+acceptability_data <- modeling_data %>%
+  mutate(
+    rating_num = as.integer(as.character(rating)),
+    is_acceptable = if_else(rating_num >= 3, "Acceptable", "Unacceptable")
+  )
+
+# Check the decisions on acceptability classification
+print("Spot check: First 10 rows of acceptability classification:")
+print(head(acceptability_data[, c("rating_num", "is_acceptable")], 10))
+
+# Calculate percentages
+acceptability_summary <- acceptability_data %>%
+  group_by(condition, is_acceptable) %>%
+  summarise(count = n(), .groups = 'drop') %>%
+  group_by(condition) %>%
+  mutate(percentage = (count / sum(count)) * 100) %>%
+  # Show the acceptable percentages 
+  filter(is_acceptable == "Acceptable") %>%
+  select(condition, Acceptability_Percentage = percentage)
+
+# 3. Print the table
+kable(acceptability_summary, digits = 1, caption = "Percentage of Acceptable Ratings (3 or 4) by Condition")
+```
+```{r}
+stats <- read.csv("results/statistics.csv", stringsAsFactors = FALSE)
+if (nrow(stats) > 0) knitr::kable(stats)
+
+```
+
 
 ## Discussion
 
 ### Summary of Replication Attempt
 
-Open the discussion section with a paragraph summarizing the primary result from the confirmatory analysis and the assessment of whether it replicated, partially replicated, or failed to replicate the original result.  
+The aim of this conceptual replication was to test the initiator hypothesis in Turkish, which is a case-marking language, and compare the results to the original study by Wolff et al. (2009) and the replication by Kim & Marsden (2026). Results show that the initiator hypothesis holds for Turkish speakers. That is, Turkish speakers rated sentences with non-self-energizing subjects as significantly less acceptable than those with self-energizing subjects. That is, Turkish speakers rated sentences with non-self-energizing subjects as significantly less acceptable than those with self-energizing subjects (p < 0.001). That is, high self-energizing subjects (e.g., "the air conditioner") were rated acceptable 65.5% of the time, while low self-energizing subjects (e.g., "the knife") were rated acceptable only 41.8% of the time. This pattern aligns with the findings from Korean speakers in Wolff et al. (2009), supporting the generalizability of the initiator hypothesis to Turkish. 
 
 ### Commentary
 
+
 Add open-ended commentary (if any) reflecting (a) insights from follow-up exploratory analysis, (b) assessment of the meaning of the replication (or not) - e.g., for a failure to replicate, are the differences between original and present study ones that definitely, plausibly, or are unlikely to have been moderators of the result, and (c) discussion of any objections or challenges raised by the current and original authors about the replication attempt.  None of these need to be long.
+
+Wolff et al. (2009) reports no significant interaction between energy generation and acceptability for English and Mandarin speakers, while Korean speakers show a significant drop in acceptability for non-self-energizing subjects. This study shows that Turkish speakers also show a significant drop in acceptability for non-self-energizing subjects. This provides further support for the initiator hypothesis and suggests that the presence of morphological case marking in a language may be associated with constraints on subjecthood related to energy generation. Since neither study reports effect sizes, I cannot compare the magnitude of the effect in Turkish speakers to that of Korean speakers. However, the calculated effect size for Turkish ($d = 0.5$) confirms a medium effect size, which confirms the significant drop in the acceptability of non-self-energizing subjects among Turkish speakers. 
+
+# Cohen's d for the difference between self-energizing and non-self-energizing subjects in Turkish speakers is calculated as follows:
+```{r}
+# Calculate means and SDs per condition
+stats <- modeling_data %>%
+  group_by(condition) %>%
+  summarise(
+    mean = mean(as.numeric(as.character(rating))),
+    sd = sd(as.numeric(as.character(rating))),
+    n = n()
+  )
+
+# Calculate Cohen's d
+m1 <- stats$mean[1]
+m2 <- stats$mean[2]
+sd1 <- stats$sd[1]
+sd2 <- stats$sd[2]
+n1 <- stats$n[1]
+n2 <- stats$n[2]
+
+pooled_sd <- sqrt(((n1 - 1)*sd1^2 + (n2 - 1)*sd2^2) / (n1 + n2 - 2))
+cohens_d <- abs(m1 - m2) / pooled_sd
+
+cat("Turkish Effect Size (Cohen's d):", cohens_d)
+```
