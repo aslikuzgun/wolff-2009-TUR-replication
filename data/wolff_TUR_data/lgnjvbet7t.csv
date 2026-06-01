@@ -1,0 +1,33 @@
+"rt","stimulus","response","trial_type","trial_index","time_elapsed","internal_node_id","participant_id","experiment_id","task","item_id","condition","item_type","sentence","rating"
+"5750","
+      <div class=""panel"">
+        <h1>Welcome</h1>
+        <p class=""lede"">Thank you for taking part in this study. You will judge the naturalness of short Turkish sentences based on your intuition.</p>
+        <p class=""lede"">There are no right or wrong answers. Please respond quickly and honestly using the full 5-point scale.</p>
+      </div>
+    ","0","html-button-response","0","5756","0.0-0.0","lgnjvbet7t","MmjD9uQZYa6C","","","","","",""
+"2711","
+      <div class=""panel"">
+        <h2>Instructions</h2>
+        <ul class=""intro-list"">
+          <li>You will see one sentence at a time.</li>
+          <li>Use the buttons from 1 to 5 to rate how natural each sentence sounds.</li>
+          <li><strong>1</strong> means completely unnatural.</li>
+          <li><strong>5</strong> means completely natural.</li>
+          <li>Please use your first intuition.</li>
+          <li>The sentences will appear in random order.</li>
+        </ul>
+      </div>
+    ","0","html-button-response","1","8468","0.0-1.0","lgnjvbet7t","MmjD9uQZYa6C","","","","","",""
+"4224","
+        <div class=""panel"">
+          <div class=""sentence-box"">Bıçak ekmeği kesti.</div>
+          <div class=""scale-note"">How natural does this sentence sound based on your intuition?</div>
+        </div>
+      ","4","html-button-response","2","12693","0.0-2.0","lgnjvbet7t","MmjD9uQZYa6C","acceptability_rating","2","non_self_energizing","critical","Bıçak ekmeği kesti.","5"
+"1207","
+        <div class=""panel"">
+          <div class=""sentence-box"">Klima odayı soğuttu.</div>
+          <div class=""scale-note"">How natural does this sentence sound based on your intuition?</div>
+        </div>
+      ","4","html-button-response","3","13901","0.0-3.0","lgnjvbet7t","MmjD9uQZYa6C","acceptability_rating","1","self_energizing","critical","Klima odayı soğuttu.","5"
