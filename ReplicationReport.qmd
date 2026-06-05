@@ -11,8 +11,8 @@ format:
 ## Introduction
 
 Wolff et al. (2009) proposes the initiator hypothesis that states in languages with morphological case (e.g., Korean, Turkish), the external argument of a clause [i.e., the subject] must be able to self energize. This restriction results in the following contrast:
-The husband surprised the wife. (Highly acceptable in English/Mandarin).
-The ring surprised the wife. (Highly acceptable in English/Chinese, but significantly less natural for Korean speakers).                   (Wolff et al., 2009) 
+The husband surprised the wife.  (acceptable in English/Mandarin).
+The ring surprised the wife. (acceptable in English/Chinese, but not in Korean).                   (Wolff et al., 2009) 
 Kim & Marsden (2026) further extends this hypothesis to psych-verbs and shows that the difference persists between the case marking (Korean) and non-case marking languages (English and Mandarin). The Initiator Hypothesis predicts Turkish speakers to align with Korean speakers since they are both case marking languages. 
 
 This study aims to test the initiator hypothesis with Turkish speakers. Since there is no study that confirms this relative contrast replicates in a case marking language other than Korean, I will employ the Turkish translations of the material in Wolff et. al. to show that the Initiator hypothesis is relevant to Turkish, and compare the data to the Korean and English speakers in Wolff et al. (2009). Lastly, the experimental design will follow  Kim & Marsden (2026) who aimed to replicate Wolff et al. (2009) with psych verbs. 
@@ -42,35 +42,33 @@ A power analysis for Kim & Marsden (2026) has an f2 of 0.41 and this yields 22 p
 ### Planned Sample
 Wolff et al. (2009) has 18 speakers for each language (i.e., English, Mandarin, and Korean) while Kim & Marsden (2026) employs 44 Korean speakers.
 
-Considering the previous studies and the power analysis I plan a sample size of 60 native Turkish speakers. The participants will be preselected based on whether they are native speakers and if they use Turkish in their daily lives, to eliminate any attrition and intervention bias.
+Considering the previous studies and the power analysis a sample size of 60 native Turkish speakers, I recruited 115 native speakers of Turkish. The recruitment took place through using digital platforms or direct messages to participants.
 
 ### Materials
 
 This study employs the stimuli developed for Experiment 1 by Wolff et al. (2009). The sentences in Wolff et al. (2009) will be translated into Turkish.  Wolff et al. (2009) has 30 sentences with inanimate external arguments. Half of these sentences have external arguments that are mostly able to generate their own energy, as shown in (1).
 
-The air conditioner cooled the room. (Wolff et al., 2009)
+(1) The air conditioner cooled the room. (Wolff et al., 2009)
 
 The external arguments of the other half have external arguments that are unable to generate their own energy, (2).
 
-The knife cut the bread. (Wolff et al., 2009)
+(2) The knife cut the bread. (Wolff et al., 2009)
 
 Kim & Marsden (2026) has 32 target sentences with 16 animate and 16 inanimate external arguments. This study also has 24 filler items. 
 
-Since I replicate the design in Kim & Marsden (2026), with the materials in Wolff et al. (2009), I will have the direct translations of the 30 sentences in Wolff et al. (2009), along with 20 filler items with different acceptability conditions. There will be 50 sentences in total. The fillers will serve as attention checkers. 
+Since I replicate the design in Kim & Marsden (2026), with the materials in Wolff et al. (2009), I will have the direct translations of the 30 sentences in Wolff et al. (2009), along with 20 filler items with different acceptability conditions. There will be 50 sentences in total. The fillers will serve as attention checkers. The materials are available at:https://github.com/aslikuzgun/wolff-2009-TUR-replication/tree/main
 
 ### Procedure	
 
-In this experiment, participants are shown sentences one by one on Prolific*. They rate the naturalness of sentences on a 5-point scale (0 to 4), where 4 means "completely natural" and 0 means "completely unnatural." Participants will be explicitly told to base their judgments on their linguistic intuition. The entire process should take 10–15 minutes.
+In this experiment, participants are shown sentences one by one digitally. They rate the naturalness of sentences on a 5-point scale (0 to 4), where 4 means "completely natural" and 0 means "completely unnatural." Participants are explicitly told to base their judgments on their linguistic intuition. The entire process takes 5-10 minutes.
 
-* I instead used my socials to recruit participants to ensure native speaker status and demographic representation.
 ### Analysis Plan
 
-Following Kim and Marsden (2006), I will implement the model using Cumulative Link Mixed Models (CLMMs) in R. The primary fixed effect will be Condition (self-energizing vs. non-self-energizing subjects). I will use Estimated Marginal Means (EMMs) to conduct pairwise comparisons between the two conditions. I will attempt to fit the maximal model, however, if it fails to converge (as in Kim and Marsden 2006), I will simplify the model by including random slopes for items only. I will use sum-coding to assess how much each condition deviates from the average rating.
+Following Kim and Marsden (2006), I use the Cumulative Link Mixed Model (CLMM) in R. As in Kim and Marsden 2006, I simplify the model by including random slopes for items only. I will use sum-coding to assess how much each condition deviates from the average rating.
 
 ### Data cleaning
 
-Participant data will be screened based on responses to grammatical and ungrammatical fillers. Participants will be excluded if they fail to show a clear differentiation between these categories. In addition, any participant with incomplete data or suspicious response patterns (e.g., selecting the same rating for every item) will be removed from the analysis.
-
+Participants were required to maintain a minimum accuracy rate of 80% on filler items. For grammatical fillers, a rating of 3 or 4 was considered a correct judgment; for ungrammatical fillers (semantic, tense, or case violations), a rating of 0, 1, or 2 was considered correct. In addition, any incomplete data is excluded. These exclusions reduced the number of participants to 102. 
 ### Differences from Original Study
 
 Unlike Kim and Marsden, this study focuses on a single language (Turkish), therefore, there won’t be a group condition.
@@ -85,9 +83,9 @@ Explicitly describe known differences in sample, setting, procedure, and analysi
 You can comment this section out prior to final report with data collection.
 
 #### Actual Sample
-  A total of116 participants recruited in total. The participants are all native speakers of Turkish and are based in Turkey. The data was collected through the author's socials (either by direct request or through social media). The age group varies between 20-50 years old. The sample is filtered based on the attention checkers and the participants who didn't finish the experiment. Participants who didn't finish the experiment are excluded from the analysis and those who had less than 80% accuracy on the attention checkers are also excluded.
+  A total of 115 participants recruited. The participants are all native speakers of Turkish and are based in Turkey. The data was collected through the author's socials (either by direct request or through social media). The age group varies between 20-50 years old. The sample is filtered based on the attention checkers and the participants who didn't finish the experiment. Participants who didn't finish the experiment are excluded from the analysis and those who had less than 80% accuracy on the attention checkers are also excluded.
 
-  After the filtering process, I ended up with 101 participants.
+  After the filtering process, I ended up with 102 participants.
 
 
 #### Differences from pre-data collection methods plan
@@ -97,8 +95,7 @@ Kim and Marsden did not filter their data based on attention checkers, but I dec
 
 ### Data # R
 ```{r}
-# libraries
-library(tidyverse)
+# librarieslibrary(tidyverse)
 library(readxl)
 library(ordinal)
 library(emmeans)
@@ -109,38 +106,59 @@ library(readr)
 library(dplyr)
 library(purrr)
 library(stringr)
+
 # show dplyr warnings
 dplyr::last_dplyr_warnings()
 
 ```
-
 ```{r}
 
-# final participant counts
+# Get a list of all participant CSV paths
+data_files <- list.files(
+  path = "data/wolff_TUR_data", 
+  pattern = "\\.csv$", 
+  full.names = TRUE
+)
+
+# Filter out metadata files
+data_files <- data_files[!str_detect(data_files, "beginning.csv")]
+
+# Prevents type-mismatch crashes
+df_clean <- map_dfr(data_files, ~ {
+  read_csv(
+    .x, 
+    show_col_types = FALSE,
+    col_types = cols(.default = col_character()) # Forces every column to text format for binding
+  ) %>% 
+  mutate(source_file = basename(.x))
+})
+
 experiment_only <- if ("task" %in% names(df_clean)) df_clean %>% filter(!is.na(task)) else df_clean
 
+# Calculate initial participant counts in terms of columns
 participants_tbl <- experiment_only %>%
   filter(!is.na(participant_id)) %>%
   group_by(participant_id) %>%
-  summarise(n_responses = n(), n_missing_rt = sum(is.na(rt_num)), .groups = "drop") 
+  summarise(
+    n_responses = n(), 
+    n_missing_rt = sum(is.na(rt) | rt == "NA" | rt == ""), 
+    .groups = "drop"
+  ) 
 
-# Store the debugging list
+# Store the debugging list safely
 cleaning_audit <- list(
-  problematic_values = check, 
-  problems_summary = problems_preview, 
-  n_missing_after = n_missing_after,
   counts = participants_tbl
 )
 
-# Print a readable output
-cat("Initial data import complete. Total participants recorded:", nrow(participants_tbl), "\n")
+# Print  output
+cat("Initial data import complete.\n")
+cat("Total files merged:", length(data_files), "\n")
+cat("Total participants recorded:", nrow(participants_tbl), "\n")
 ```
 
-
-#### Prepare data for analysis - create columns etc.
+#### Prepare data for analysis
 
 ```{r}
-
 
 modeling_input <- experiment_only %>%
   mutate(
@@ -220,17 +238,8 @@ contrasts(modeling_data$condition) <- contr.sum(length(levels(modeling_data$cond
 model <- clmm(rating ~ condition + (1|participant_id) + (1|item_id), data = modeling_data)
 summary(model)
 
-
 ```
 
-### linear model with numeric ratings
-```{r}
-# Convert the ordered factor back to numeric for lmer
-model <- lmer(as.numeric(as.character(rating)) ~ condition + (1 | participant_id) + (1 | item_id), 
-              data = modeling_data)
-
-summary(model)
-```
 ### Data visualization
 ```{r}
 library(ggplot2)
@@ -254,7 +263,7 @@ ggplot(plot_data, aes(x = condition, y = rating_num, fill = condition)) +
     overflow = "compress",   # prevent dots from going beyond the plot area
     alpha = 0.7
   ) +
-  # Bars represent the mean and confidence intervals (summary statistics)
+  # Bars represent the mean and confidence intervals 
   stat_pointinterval(
     point_interval = mean_qi, 
     .width = c(.66, .95),
@@ -373,7 +382,7 @@ ggplot(plot_data, aes(x = factor(rating_num), y = percentage, fill = condition))
 library(dplyr)
 library(knitr)
 
-# Define acceptability based on ratings (only 3 or 4 are acceptable)
+# Define acceptability based on ratings (3 or 4 are both considered acceptable)
 acceptability_data <- modeling_data %>%
   mutate(
     rating_num = as.integer(as.character(rating)),
@@ -394,7 +403,7 @@ acceptability_summary <- acceptability_data %>%
   filter(is_acceptable == "Acceptable") %>%
   select(condition, Acceptability_Percentage = percentage)
 
-# 3. Print the table
+# Print the table
 kable(acceptability_summary, digits = 1, caption = "Percentage of Acceptable Ratings (3 or 4) by Condition")
 ```
 ```{r}
@@ -408,14 +417,14 @@ if (nrow(stats) > 0) knitr::kable(stats)
 
 ### Summary of Replication Attempt
 
-The aim of this conceptual replication was to test the initiator hypothesis in Turkish, which is a case-marking language, and compare the results to the original study by Wolff et al. (2009) and the replication by Kim & Marsden (2026). Results show that the initiator hypothesis holds for Turkish speakers. That is, Turkish speakers rated sentences with non-self-energizing subjects as significantly less acceptable than those with self-energizing subjects. That is, Turkish speakers rated sentences with non-self-energizing subjects as significantly less acceptable than those with self-energizing subjects (p < 0.001). That is, high self-energizing subjects (e.g., "the air conditioner") were rated acceptable 65.5% of the time, while low self-energizing subjects (e.g., "the knife") were rated acceptable only 41.8% of the time. This pattern aligns with the findings from Korean speakers in Wolff et al. (2009), supporting the generalizability of the initiator hypothesis to Turkish. 
+The aim of this conceptual replication was to test the initiator hypothesis in Turkish, which is a case-marking language, and compare the results to the original study by Wolff et al. (2009) and the replication by Kim & Marsden (2026). Results show that the initiator hypothesis holds for Turkish speakers.  The acceptability judgements show that high self-energizing subjects (e.g., "the air conditioner") were rated acceptable 65.5% of the time, while low self-energizing subjects (e.g., "the knife") were rated acceptable only 41.7% of the time. That is, Turkish speakers rated sentences with non-self-energizing subjects as significantly less acceptable than those with self-energizing subjects (p < 0.05). This pattern aligns with the findings from Korean speakers in Wolff et al. (2009), supporting the generalizability of the initiator hypothesis to Turkish. 
 
 ### Commentary
 
-
 Add open-ended commentary (if any) reflecting (a) insights from follow-up exploratory analysis, (b) assessment of the meaning of the replication (or not) - e.g., for a failure to replicate, are the differences between original and present study ones that definitely, plausibly, or are unlikely to have been moderators of the result, and (c) discussion of any objections or challenges raised by the current and original authors about the replication attempt.  None of these need to be long.
 
-Wolff et al. (2009) reports no significant interaction between energy generation and acceptability for English and Mandarin speakers, while Korean speakers show a significant drop in acceptability for non-self-energizing subjects. This study shows that Turkish speakers also show a significant drop in acceptability for non-self-energizing subjects. This provides further support for the initiator hypothesis and suggests that the presence of morphological case marking in a language may be associated with constraints on subjecthood related to energy generation. Since neither study reports effect sizes, I cannot compare the magnitude of the effect in Turkish speakers to that of Korean speakers. However, the calculated effect size for Turkish ($d = 0.5$) confirms a medium effect size, which confirms the significant drop in the acceptability of non-self-energizing subjects among Turkish speakers. 
+Wolff et al. (2009) reports no significant interaction between energy generation and acceptability for English and Mandarin speakers, while Korean speakers show a significant drop in acceptability for non-self-energizing subjects. This study shows that Turkish speakers also show a significant drop in acceptability for non-self-energizing subjects. This provides further support for the initiator hypothesis and suggests that the presence of morphological case marking in a language may be associated with constraints on subjecthood related to energy generation. Since neither study reports effect sizes, I cannot compare the magnitude of the effect in Turkish speakers to that of Korean speakers. However, the calculated effect size for Turkish ($d = 0.5$) confirms a medium effect size, which confirms the significant drop in the acceptability of non-self-energizing subjects among Turkish speakers. Future research can look into whether the notion of a self-energizing entity varies across languages and items.
+
 
 # Cohen's d for the difference between self-energizing and non-self-energizing subjects in Turkish speakers is calculated as follows:
 ```{r}
